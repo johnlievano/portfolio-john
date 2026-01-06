@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ======================================================
+   CONFIGURACIÓN GLOBAL
+====================================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  /* IMPORTANTE: Eliminamos background-color y color fijos. */
+  /* Ahora App.tsx controla si es blanco o negro. */
+  overflow-x: hidden; 
+}
+
+/* ======================================================
+   TIPOGRAFÍA
+====================================================== */
+h1, h2, h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+/* Eliminamos los estilos fijos para <p> y tamaños de fuente.
+   Dejaremos que las clases de Tailwind (text-xl, md:text-2xl, etc.)
+   controlen el tamaño para que sea responsive. */
+
+/* ======================================================
+   SCROLLBAR PERSONALIZADO (Neutro para ambos temas)
+====================================================== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1; /* Gris suave (Slate-300) */
+  border-radius: 10px;
+}
+
+/* En modo oscuro, el thumb puede ser más oscuro si se desea, 
+   pero un gris medio funciona bien en ambos. */
+.dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fcd34d; /* Gold al hover */
+}
+
+/* ======================================================
+   LIMPIEZA TOTAL
+====================================================== */
+/* 
+   1. :root (Variables fijas) -> Conflicto con modo claro.
+   2. .card-gold -> Ya lo convertimos a clases Tailwind en los componentes.
+   3. header, nav -> Tenían !important que rompía el Navbar.
+   4. Estilos globales de texto -> Rompían el cambio de color de fuente.
+*/
+
+/* --- Scrollbar Personalizado --- */
+:root {
+  --sb-width: 10px;
+  --sb-track-color: #f4f4f5; /* Fondo claro por defecto */
+  --sb-thumb-color: #d1d5db;
+  --sb-thumb-hover: #9ca3af;
+}
+
+/* Soporte para Dark Mode vía Clase (Tu ThemeToggle) */
+.dark {
+  --sb-track-color: #09090b; /* Fondo oscuro activo */
+  --sb-thumb-color: #27272a;
+  --sb-thumb-hover: #3f3f46;
+}
+
+/* Soporte nativo del sistema (Backup) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sb-track-color: #09090b;
+    --sb-thumb-color: #27272a;
+    --sb-thumb-hover: #3f3f46;
+  }
+}
+
+/* Aplicación de estilos */
+::-webkit-scrollbar {
+  width: var(--sb-width);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 5px;
+  border: 2px solid var(--sb-track-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sb-thumb-hover);
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
