@@ -103,12 +103,6 @@ export const Highlights = () => {
 
   const certifications: Certification[] = [
     {
-      title: "HTML Essentials",
-      year: "2025",
-      desc: t('certifications.items.html'),
-      images: ["HTML_Essentials_certificate_john_llievano.jpg"]
-    },
-    {
       title: "Fundamentals Python",
       year: "2025",
       desc: t('certifications.items.python'),
@@ -122,6 +116,12 @@ export const Highlights = () => {
       year: "2025",
       desc: t('certifications.items.js'),
       images: ["JavaScript_Essentials_certificate_john_lievano.jpg"]
+    },
+    {
+      title: "HTML Essentials",
+      year: "2025",
+      desc: t('certifications.items.html'),
+      images: ["HTML_Essentials_certificate_john_llievano.jpg"]
     },
     {
       title: "Cybersecurity (CAPC)",
@@ -143,7 +143,9 @@ export const Highlights = () => {
     },
   ];
 
-  const visibleCertifications = showAll ? certifications : certifications.slice(0, 4);
+  const visibleCertifications = showAll
+  ? certifications
+  : certifications.slice(0, window.innerWidth < 768 ? 3 : 4);
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {

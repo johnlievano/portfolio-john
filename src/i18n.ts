@@ -9,7 +9,7 @@ const resources = {
         home: "Inicio",
         projects: "Proyectos",
         certificates: "Certificados",
-        skills: "Habilidades",
+        skills: "Herramientas",
         contact: "Contáctame"
       },
       hero: {

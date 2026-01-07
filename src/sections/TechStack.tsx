@@ -4,11 +4,14 @@ export const TechStack = () => {
   const { t } = useTranslation();
 
   const skills = [
-    { name: "HTML5 / CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+    // Agregado TypeScript
+    { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
     { name: "JavaScript (ES6+)", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
     { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+    // Agregado Next.js
+    { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
     { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-    { name: "Django", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
+    // Eliminado Django
     { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
     { name: "SQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
     { name: "Git / GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
@@ -40,6 +43,10 @@ export const TechStack = () => {
                          hover:-translate-y-2 hover:shadow-lg hover:border-amber-400
                          dark:hover:bg-white/10 dark:hover:border-[#FCD34D]"
             >
+              {/* Nota: El icono de Next.js original es negro. Si en modo oscuro (Dark Mode)
+                  no se ve bien porque el fondo es oscuro, puedes agregar la clase "dark:invert" 
+                  a la etiqueta <img> de abajo.
+              */}
               <div className="relative w-12 h-12 mb-4 transition-all duration-300 filter grayscale group-hover:grayscale-0 group-hover:scale-110">
                 <img 
                   src={s.icon} 
