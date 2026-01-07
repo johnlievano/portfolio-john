@@ -24,47 +24,49 @@ export const ParticlesBackground = () => {
     <Particles
       id="tsparticles"
       key={theme} // Reinicia al cambiar tema
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="fixed inset-0 z-0 pointer-events-none" // pointer-events-none es correcto para que no bloquee tus botones
       options={{
         fpsLimit: 60,
         interactivity: {
-          // RESTAURADO: Interactividad con el mouse
+          // Importante: detecta el mouse en la ventana, ya que el canvas tiene pointer-events-none
+          detectsOn: "window",
           events: {
             onHover: {
               enable: true,
-              mode: "grab", // "grab" crea líneas hacia el mouse
+              mode: "grab", // Conecta líneas al pasar el mouse
             },
             onClick: {
+              enable: false, // DESACTIVADO: Evita crear partículas al hacer click/tap
+              mode: "push",
+            },
+            resize: {
               enable: true,
-              mode: "push", // Click crea más partículas
             },
           },
           modes: {
             grab: {
               distance: 140,
               links: {
-                opacity: 1, // Las líneas al mouse son sólidas
+                opacity: 1,
               },
             },
-            push: {
-              quantity: 4,
-            },
+            // La configuración 'push' ya no es necesaria, pero no estorba si se deja
           },
         },
         particles: {
-          number: { value: 100, density: { enable: true } },
+          // Consejo: Si aún sientes lag en móviles viejos, baja este valor a 50 o 60
+          number: { value: 80, density: { enable: true } },
           color: { value: color },
           links: {
             enable: true,
             distance: 150,
             color: color,
-            // En modo claro (light) aumentamos opacidad para que se vea bien
             opacity: theme === "dark" ? 0.2 : 0.5,
             width: 1,
           },
           move: {
             enable: true,
-            speed: 1.5, // Velocidad para que se note el movimiento
+            speed: 1, // Reduje un poco la velocidad para que sea más "fondo tranquilo"
             outModes: "out",
           },
           opacity: { value: theme === "dark" ? 0.3 : 0.6 },
