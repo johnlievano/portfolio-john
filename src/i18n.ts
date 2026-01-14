@@ -55,14 +55,17 @@ const resources = {
       },
       contact: {
         title: "CONTACTO",
-        // --- NUEVO SUBTÍTULO ---
         subtitle: "¿Te gustaría hablar conmigo, o te gustaría tener tu propia página web? No dudes en contactarme.",
         whatsapp_label: "WhatsApp",
         email_label: "Correo",
         send_msg: "Enviar mensaje",
-        // --- NUEVAS CLAVES ---
         connect: "Conectemos",
         check_repo: "Ver perfil"
+      },
+      // --- SECCIÓN FOOTER AGREGADA (ES) ---
+      footer: {
+        rights: "Todos los derechos reservados.",
+        attribution: "Icono de Dragon Ball por ©Toei Animation"
       }
     }
   },
@@ -118,13 +121,17 @@ const resources = {
       },
       contact: {
         title: "CONTACT",
-        // --- TRADUCCIÓN INGLÉS ---
         subtitle: "Would you like to talk to me, or are you looking for your own website? Don't hesitate to reach out.",
         whatsapp_label: "WhatsApp",
         email_label: "Email",
         send_msg: "Send Message",
         connect: "Let's Connect",
         check_repo: "View Profile"
+      },
+      // --- SECCIÓN FOOTER AGREGADA (EN) ---
+      footer: {
+        rights: "All rights reserved.",
+        attribution: "Dragon Ball icon by ©Toei Animation"
       }
     }
   }
