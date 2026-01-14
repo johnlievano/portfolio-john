@@ -19,7 +19,7 @@ export const Navbar = () => {
     { name: t("nav.home"), href: "#inicio" },
     { name: t("nav.projects"), href: "#proyectos" },
     { name: t("nav.certificates"), href: "#certificados" },
-    { name: t("nav.skills"), href: "#stack" }, 
+    { name: t("nav.skills"), href: "#stack" },
   ];
 
   return (
@@ -31,16 +31,36 @@ export const Navbar = () => {
             : "bg-transparent border-transparent"
         }`}
     >
-      {/* Agregamos 'relative' para que el menú absoluto se posicione respecto a este contenedor */}
       <div className="relative flex items-center justify-between px-6 py-4 mx-auto max-w-7xl">
-
-        {/* IZQUIERDA: Logo */}
+        
+        {/* IZQUIERDA: Logo con Onda de Ki */}
         <div className="flex-shrink-0">
           <a
             href="#inicio"
-            className="text-xl font-black tracking-tighter uppercase transition-colors text-slate-900 dark:text-white"
+            className="group relative flex items-center text-xl font-black tracking-tighter uppercase transition-colors"
           >
-            JohnDev<span className="text-[#FCD34D]">.</span>
+            <span className="text-slate-900 dark:text-white transition-colors z-10">J</span>
+            
+            {/* CONTENEDOR DE LA ESFERA Y EL KI */}
+            <div className="relative mx-0.5 flex items-center justify-center">
+              
+              {/* ONDA DE KI (AURORA) */}
+              <div className="absolute inset-0 rounded-full blur-md opacity-0 transition-all duration-500 ease-out
+                              group-hover:opacity-100 group-hover:scale-150 group-hover:animate-pulse
+                              bg-orange-500 dark:bg-[#FCD34D]" 
+              />
+
+              {/* LA ESFERA DEL DRAGÓN */}
+              <img 
+                src="/logo.png" 
+                alt="Esfera del Dragón" 
+                className="relative z-10 h-6 w-auto object-contain transition-all duration-300"
+              />
+            </div>
+            
+            <span className="text-slate-900 dark:text-white transition-colors z-10">
+              hnDev<span className="text-[#FCD34D]">.</span>
+            </span>
           </a>
         </div>
 
@@ -76,40 +96,30 @@ export const Navbar = () => {
         <div className="flex items-center gap-3 md:hidden">
           <LanguageBtn />
           <ThemeToggle />
-          
-          {/* BOTÓN CON ANIMACIÓN DE ICONOS */}
+
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="relative w-7 h-7 flex items-center justify-center text-slate-900 dark:text-white focus:outline-none"
             aria-label="Toggle menu"
           >
-            <List 
-              size={28} 
+            <List
+              size={28}
               className={`absolute transition-all duration-300 transform 
-                ${isOpen ? "opacity-0 rotate-90 scale-75" : "opacity-100 rotate-0 scale-100"}`} 
+                ${isOpen ? "opacity-0 rotate-90 scale-75" : "opacity-100 rotate-0 scale-100"}`}
             />
-            <X 
-              size={28} 
+            <X
+              size={28}
               className={`absolute transition-all duration-300 transform 
-                ${isOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-75"}`} 
+                ${isOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-75"}`}
             />
           </button>
         </div>
       </div>
 
       {/* MENÚ MÓVIL ANIMADO */}
-      {/* CAMBIOS CLAVE AQUÍ:
-          1. Eliminé "{isOpen && (...)}" para que el div siempre exista y pueda animarse al cerrar.
-          2. Usé "absolute top-full left-0 w-full" para que cuelgue de la barra.
-          3. Agregué clases condicionales:
-             - Abierto: opacity-100 translate-y-0
-             - Cerrado: opacity-0 -translate-y-5 (se va un poquito hacia arriba) pointer-events-none (para no poder dar click cuando está invisible)
-      */}
-      <div className={`md:hidden absolute top-full left-0 w-full bg-white dark:bg-[#050505] backdrop-blur-md border-b border-slate-200 dark:border-white/5 px-6 py-6 flex flex-col gap-6 shadow-xl transition-all duration-300 ease-in-out transform origin-top
-          ${isOpen 
-            ? "opacity-100 translate-y-0 visible" 
-            : "opacity-0 -translate-y-5 invisible pointer-events-none"
-          }`}
+      <div
+        className={`md:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-[#050505]/95 backdrop-blur-md border-b border-slate-200 dark:border-white/5 px-6 py-6 flex flex-col gap-6 shadow-xl transition-all duration-300 ease-in-out transform origin-top
+          ${isOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-5 invisible pointer-events-none"}`}
       >
         {links.map((link) => (
           <a

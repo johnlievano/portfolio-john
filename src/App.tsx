@@ -11,6 +11,7 @@ import { TechStack } from "./sections/TechStack";
 import { Contact } from "./sections/Contact";
 import { ParticlesBackground } from "./components/effects/ParticlesBackground";
 import { ScrollToTop } from "./components/layout/ScrollToTop";
+import { Footer } from "./components/layout/Footer";
 
 function App() {
   const { i18n } = useTranslation();
@@ -58,6 +59,7 @@ function App() {
               <Highlights />
               <TechStack />
               <Contact />
+              <Footer />
             </motion.div>
           )}
         </AnimatePresence>
