@@ -13,7 +13,6 @@ export const Projects = () => {
       stack: ["React", "TypeScript", "Vite", "Frontend Moderno"],
       link: "https://aurea-web.com/Index",
       github: "https://github.com/aureawebinfo/aurea-web",
-      // Definimos ambas rutas
       imageLight: "/aurea-banner-white.webp",
       imageDark: "/aurea-banner-black.webp",
     },
@@ -33,7 +32,9 @@ export const Projects = () => {
   return (
     <section
       id="proyectos"
-      className="relative py-20 transition-colors duration-300 
+      className="relative z-10 py-20 transition-colors duration-300
+                 mt-20 md:mt-0 
+                 rounded-t-[3rem] md:rounded-none
                  bg-gradient-to-b from-slate-100 to-slate-300 
                  dark:bg-gradient-to-b dark:from-[#050505] dark:to-[#0B1120]"
     >
@@ -51,18 +52,17 @@ export const Projects = () => {
             <div
               key={p.id}
               className="group flex flex-col transition-all duration-300 border rounded-2xl overflow-hidden
-                         bg-white border-slate-300 shadow-xl shadow-slate-300/40 
-                         dark:bg-white/5 dark:border-white/10 dark:shadow-none 
-                         hover:border-amber-400/50 dark:hover:border-[#FCD34D]/50"
+                           bg-white border-slate-300 shadow-xl shadow-slate-300/40 
+                           dark:bg-white/5 dark:border-white/10 dark:shadow-none 
+                           hover:border-amber-400/50 dark:hover:border-[#FCD34D]/50"
             >
-              {/* IMAGEN DEL PROYECTO (Doble renderizado controlado por CSS) */}
+              {/* IMAGEN DEL PROYECTO */}
               <a 
                 href={p.link} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="relative w-full h-72 overflow-hidden bg-slate-200 dark:bg-slate-800 block"
               >
-                {/* Imagen para Modo Claro (Se oculta en dark) */}
                 <img
                   src={p.imageLight}
                   alt={`Portada de ${p.title} - Light`}
@@ -70,8 +70,6 @@ export const Projects = () => {
                   className="block dark:hidden w-full h-full object-cover object-top 
                              transition-transform duration-700 group-hover:scale-105"
                 />
-
-                {/* Imagen para Modo Oscuro (Se oculta en light) */}
                 <img
                   src={p.imageDark}
                   alt={`Portada de ${p.title} - Dark`}
@@ -100,15 +98,14 @@ export const Projects = () => {
                     <span
                       key={s}
                       className="px-3 py-1 text-xs font-medium border rounded transition-colors
-                                 bg-slate-100 text-slate-700 border-slate-200
-                                 dark:bg-black/30 dark:text-gray-300 dark:border-white/10"
+                                   bg-slate-100 text-slate-700 border-slate-200
+                                   dark:bg-black/30 dark:text-gray-300 dark:border-white/10"
                     >
                       {s}
                     </span>
                   ))}
                 </div>
 
-                {/* FOOTER - SOLO ICONOS */}
                 <div className="flex items-center gap-5 pt-4 border-t border-slate-200 dark:border-white/10 text-slate-700 dark:text-white mt-auto">
                   <a
                     href={p.github}

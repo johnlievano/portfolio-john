@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { List, X } from "@phosphor-icons/react";
-import { useTranslation } from "react-i18next"; // IMPORTANTE
+import { useTranslation } from "react-i18next";
 import ThemeToggle from "../ui/ThemeToggle";
 import { LanguageBtn } from "../ui/LanguageBtn";
 
 export const Navbar = () => {
-  const { t } = useTranslation(); // HOOK
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -31,7 +31,8 @@ export const Navbar = () => {
             : "bg-transparent border-transparent"
         }`}
     >
-      <div className="flex items-center justify-between px-6 py-4 mx-auto max-w-7xl">
+      {/* Agregamos 'relative' para que el menú absoluto se posicione respecto a este contenedor */}
+      <div className="relative flex items-center justify-between px-6 py-4 mx-auto max-w-7xl">
 
         {/* IZQUIERDA: Logo */}
         <div className="flex-shrink-0">
@@ -65,7 +66,6 @@ export const Navbar = () => {
             {t("nav.contact")}
           </a>
 
-          {/* Idioma + Tema */}
           <div className="flex items-center gap-3 pl-4 border-l border-slate-300 dark:border-white/10">
             <LanguageBtn />
             <ThemeToggle />
@@ -76,38 +76,62 @@ export const Navbar = () => {
         <div className="flex items-center gap-3 md:hidden">
           <LanguageBtn />
           <ThemeToggle />
+          
+          {/* BOTÓN CON ANIMACIÓN DE ICONOS */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="transition-colors text-slate-900 dark:text-white"
+            className="relative w-7 h-7 flex items-center justify-center text-slate-900 dark:text-white focus:outline-none"
+            aria-label="Toggle menu"
           >
-            {isOpen ? <X size={28} /> : <List size={28} />}
+            <List 
+              size={28} 
+              className={`absolute transition-all duration-300 transform 
+                ${isOpen ? "opacity-0 rotate-90 scale-75" : "opacity-100 rotate-0 scale-100"}`} 
+            />
+            <X 
+              size={28} 
+              className={`absolute transition-all duration-300 transform 
+                ${isOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-75"}`} 
+            />
           </button>
         </div>
       </div>
 
-      {/* MENÚ MÓVIL */}
-      {isOpen && (
-        <div className="md:hidden bg-white/95 dark:bg-[#050505]/95 backdrop-blur-md border-b border-slate-200 dark:border-white/5 px-6 py-6 flex flex-col gap-6 shadow-xl">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="text-lg font-medium transition-colors text-slate-700 dark:text-gray-300 hover:text-[#FCD34D]"
-            >
-              {link.name}
-            </a>
-          ))}
-
+      {/* MENÚ MÓVIL ANIMADO */}
+      {/* CAMBIOS CLAVE AQUÍ:
+          1. Eliminé "{isOpen && (...)}" para que el div siempre exista y pueda animarse al cerrar.
+          2. Usé "absolute top-full left-0 w-full" para que cuelgue de la barra.
+          3. Agregué clases condicionales:
+             - Abierto: opacity-100 translate-y-0
+             - Cerrado: opacity-0 -translate-y-5 (se va un poquito hacia arriba) pointer-events-none (para no poder dar click cuando está invisible)
+      */}
+      <div className={`md:hidden absolute top-full left-0 w-full bg-white dark:bg-[#050505] backdrop-blur-md border-b border-slate-200 dark:border-white/5 px-6 py-6 flex flex-col gap-6 shadow-xl transition-all duration-300 ease-in-out transform origin-top
+          ${isOpen 
+            ? "opacity-100 translate-y-0 visible" 
+            : "opacity-0 -translate-y-5 invisible pointer-events-none"
+          }`}
+      >
+        {links.map((link) => (
           <a
-            href="#contacto"
+            key={link.href}
+            href={link.href}
             onClick={() => setIsOpen(false)}
-            className="w-full px-4 py-3 mt-2 font-bold text-center text-black rounded-sm bg-[#FCD34D]"
+            className="text-lg font-medium transition-colors text-slate-700 dark:text-gray-300 hover:text-[#FCD34D]"
           >
-            {t("nav.contact")}
+            {link.name}
           </a>
-        </div>
-      )}
+        ))}
+
+        <div className="w-full h-[1px] bg-slate-200 dark:bg-white/10" />
+
+        <a
+          href="#contacto"
+          onClick={() => setIsOpen(false)}
+          className="w-full px-4 py-3 mt-2 font-bold text-center text-black rounded-sm bg-[#FCD34D]"
+        >
+          {t("nav.contact")}
+        </a>
+      </div>
     </nav>
   );
 };

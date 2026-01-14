@@ -9,13 +9,13 @@ export const Contact = () => {
       icon: <WhatsappLogo size={32} />, 
       label: t('contact.whatsapp_label', 'WHATSAPP'), 
       // Usamos 'link' para que coincida con s.link abajo
-      link: "https://wa.me/573044702082?text=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20contactarte.", 
+      link: "https://wa.me/573044702082?text=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustaría%20trabajar%20contigo.", 
       val: "304 470 2082" 
     },
     { 
       icon: <EnvelopeSimple size={32} />, 
       label: t('contact.email_label', 'EMAIL'), 
-      link: "mailto:johnestebanlievanomendez@gmail.com?subject=Contacto%20desde%20tu%20Portafolio&body=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustaria%20contactarte.", 
+      link: "mailto:johnestebanlievanomendez@gmail.com?subject=Contacto%20desde%20tu%20Portafolio&body=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustaría%20trabajar%20contigo.", 
       val: t('contact.send_msg', 'Enviar mensaje') 
     },
     { 

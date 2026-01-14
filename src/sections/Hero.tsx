@@ -32,12 +32,12 @@ export const Home = () => {
       icon: <WhatsappLogo size={28} />, 
       label: "WhatsApp", 
       // Cambiamos 'link' por 'href' para que coincida con el .map de abajo
-      href: "https://wa.me/573044702082?text=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20contactarte.", 
+      href: "https://wa.me/573044702082?text=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustaría%20trabajar%20contigo.", 
     },
     { 
       icon: <Envelope size={28} />, 
       label: "Email", 
-      href: "mailto:johnestebanlievanomendez@gmail.com?subject=Contacto%20desde%20tu%20Portafolio&body=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20contactarte.", 
+      href: "mailto:johnestebanlievanomendez@gmail.com?subject=Contacto%20desde%20tu%20Portafolio&body=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustaría%20trabajar%20contigo.", 
     },
     { 
       icon: <LinkedinLogo size={28} />, 
@@ -135,7 +135,7 @@ export const Home = () => {
                   rel="noopener noreferrer"
                   aria-label={social.label}
                   className="flex items-center justify-center w-12 h-12 transition-all duration-300 border-2 rounded-full
-                             border-slate-900 text-slate-900 hover:scale-110 hover:bg-slate-900 hover:text-white
+                             border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white
                              dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.4)]"
                 >
                   {social.icon}
