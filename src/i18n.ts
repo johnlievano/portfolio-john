@@ -39,7 +39,6 @@ const resources = {
         overline: "Arsenal Tecnológico",
         title: "Herramientas & Frameworks"
       },
-      // --- SECCIÓN AGREGADA: CERTIFICACIONES ---
       certifications: {
         overline: "Certificaciones",
         title: "Formación & Aprendizaje",
@@ -56,11 +55,14 @@ const resources = {
       },
       contact: {
         title: "CONTACTO",
+        // --- NUEVO SUBTÍTULO ---
+        subtitle: "¿Te gustaría hablar conmigo, o te gustaría tener tu propia página web? No dudes en contactarme.",
         whatsapp_label: "WhatsApp",
         email_label: "Correo",
-        github_label: "GitHub",
         send_msg: "Enviar mensaje",
-        check_repo: "Ver repositorio"
+        // --- NUEVAS CLAVES ---
+        connect: "Conectemos",
+        check_repo: "Ver perfil"
       }
     }
   },
@@ -100,7 +102,6 @@ const resources = {
         overline: "Tech Arsenal",
         title: "Tools & Frameworks"
       },
-
       certifications: {
         overline: "Certifications",
         title: "Education & Learning",
@@ -117,11 +118,13 @@ const resources = {
       },
       contact: {
         title: "CONTACT",
+        // --- TRADUCCIÓN INGLÉS ---
+        subtitle: "Would you like to talk to me, or are you looking for your own website? Don't hesitate to reach out.",
         whatsapp_label: "WhatsApp",
         email_label: "Email",
-        github_label: "GitHub",
         send_msg: "Send Message",
-        check_repo: "View repository"
+        connect: "Let's Connect",
+        check_repo: "View Profile"
       }
     }
   }

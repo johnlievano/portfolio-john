@@ -1,5 +1,11 @@
 import { motion } from "framer-motion";
-import { DownloadSimple } from "@phosphor-icons/react";
+import { 
+  DownloadSimple, 
+  GithubLogo, 
+  LinkedinLogo, 
+  Envelope, 
+  WhatsappLogo 
+} from "@phosphor-icons/react";
 import { ParticlesBackground } from "../components/effects/ParticlesBackground";
 import { useTranslation, Trans } from 'react-i18next';
 
@@ -9,21 +15,41 @@ export const Home = () => {
   // Ruta de tu archivo PDF
   const cvFileUrl = "/CV John Esteban Lievano.pdf";
 
-  // Función mágica para hacer las dos cosas
   const handleDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
-  e.preventDefault(); // Evita el comportamiento por defecto del enlace
+    e.preventDefault();
+    window.open(cvFileUrl, '_blank');
+    const link = document.createElement('a');
+    link.href = cvFileUrl;
+    link.download = 'CV John Esteban Lievano.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
-  // 1. Abrir el PDF en una nueva pestaña
-  window.open(cvFileUrl, '_blank');
-
-  // 2. Forzar la descarga
-  const link = document.createElement('a');
-  link.href = cvFileUrl;
-  link.download = 'CV John Esteban Lievano.pdf';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+  // --- DATOS REALES CONFIGURADOS ---
+  const socialLinks = [
+    { 
+      icon: <WhatsappLogo size={28} />, 
+      label: "WhatsApp", 
+      // Cambiamos 'link' por 'href' para que coincida con el .map de abajo
+      href: "https://wa.me/573044702082?text=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20contactarte.", 
+    },
+    { 
+      icon: <Envelope size={28} />, 
+      label: "Email", 
+      href: "mailto:johnestebanlievanomendez@gmail.com?subject=Contacto%20desde%20tu%20Portafolio&body=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20contactarte.", 
+    },
+    { 
+      icon: <LinkedinLogo size={28} />, 
+      label: "LinkedIn", 
+      href: "https://www.linkedin.com/in/john-esteban-li%C3%A9vano-m%C3%A9ndez-b99532288/", 
+    },
+    { 
+      icon: <GithubLogo size={28} />, 
+      label: "GitHub", 
+      href: "https://github.com/johnlievano", 
+    },
+  ];
   
   return (
     <section
@@ -76,25 +102,47 @@ export const Home = () => {
              />
           </p>
 
-          {/* BOTONES */}
-          <div className="flex flex-col items-center gap-4 md:flex-row md:justify-start">
-            <a
-              href="#proyectos"
-              className="w-full md:w-auto px-8 py-3.5 font-bold text-center text-black transition-transform rounded-full bg-[#FCD34D] hover:scale-105 shadow-[0_0_20px_rgba(252,211,77,0.3)] hover:shadow-[0_0_30px_rgba(252,211,77,0.5)]"
-            >
-              {t('hero.cta_projects')}
-            </a>
+          {/* CONTENEDOR DE ACCIONES (Botones + Redes) */}
+          <div className="flex flex-col gap-6">
+            
+            {/* 1. BOTONES PRINCIPALES */}
+            <div className="flex flex-col items-center gap-4 md:flex-row md:justify-start">
+              <a
+                href="#proyectos"
+                className="w-full md:w-auto px-8 py-3.5 font-bold text-center text-black transition-transform rounded-full bg-[#FCD34D] hover:scale-105 shadow-[0_0_20px_rgba(252,211,77,0.3)] hover:shadow-[0_0_30px_rgba(252,211,77,0.5)]"
+              >
+                {t('hero.cta_projects')}
+              </a>
 
-            {/* BOTÓN CV MODIFICADO */}
-            <a
-              href={cvFileUrl}
-              onClick={handleDownload} // Aquí llamamos a la función
-              className="w-full md:w-auto flex justify-center items-center gap-2 px-8 py-3.5 font-bold transition-all duration-300 border-2 rounded-full cursor-pointer
-                         border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white hover:shadow-lg
-                         dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
-            >
-              {t('hero.cta_cv')} <DownloadSimple size={20} weight="bold" />
-            </a>
+              <a
+                href={cvFileUrl}
+                onClick={handleDownload}
+                className="w-full md:w-auto flex justify-center items-center gap-2 px-8 py-3.5 font-bold transition-all duration-300 border-2 rounded-full cursor-pointer
+                          border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white hover:shadow-lg
+                          dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+              >
+                {t('hero.cta_cv')} <DownloadSimple size={20} weight="bold" />
+              </a>
+            </div>
+
+            {/* 2. REDES SOCIALES (Iconos circulares HD) */}
+            <div className="flex items-center justify-center gap-4 md:justify-start">
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="flex items-center justify-center w-12 h-12 transition-all duration-300 border-2 rounded-full
+                             border-slate-900 text-slate-900 hover:scale-110 hover:bg-slate-900 hover:text-white
+                             dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+
           </div>
         </motion.div>
 
