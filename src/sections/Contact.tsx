@@ -15,7 +15,7 @@ export const Contact = () => {
     { 
       icon: <EnvelopeSimple size={32} />, 
       label: t('contact.email_label', 'EMAIL'), 
-      link: "mailto:johnestebanlievanomendez@gmail.com?subject=Contacto%20desde%20tu%20Portafolio&body=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustaría%20trabajar%20contigo.", 
+      link: "mailto:johnestebanlievanomendez@gmail.com?subject=Contacto%20desde%20tu%20Portafolio&body=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20interesa%20trabajar%20contigo.", 
       val: t('contact.send_msg', 'Enviar mensaje') 
     },
     { 

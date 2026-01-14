@@ -31,13 +31,14 @@ export const Home = () => {
     { 
       icon: <WhatsappLogo size={28} />, 
       label: "WhatsApp", 
-      // Cambiamos 'link' por 'href' para que coincida con el .map de abajo
-      href: "https://wa.me/573044702082?text=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustaría%20trabajar%20contigo.", 
+      // "gustaría" -> "gustar%C3%ADa"
+      href: "https://wa.me/573044702082?text=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20trabajar%20contigo.", 
     },
     { 
       icon: <Envelope size={28} />, 
       label: "Email", 
-      href: "mailto:johnestebanlievanomendez@gmail.com?subject=Contacto%20desde%20tu%20Portafolio&body=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20gustaría%20trabajar%20contigo.", 
+      // "gustaría" -> "gustar%C3%ADa"
+      href: "mailto:johnestebanlievanomendez@gmail.com?subject=Contacto%20desde%20tu%20Portafolio&body=Hola%20John%20Esteban,%20vi%20tu%20portafolio%20y%20me%20interesa%20trabajar%20contigo.", 
     },
     { 
       icon: <LinkedinLogo size={28} />, 
