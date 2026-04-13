@@ -26,6 +26,8 @@ const resources = {
           "Proyectos creados con enfoque funcional, visual y escalable.",
         code: "Código",
         demo: "Demo Live",
+        show_more: "Ver más proyectos",
+        show_less: "Ver menos",
         aurea: {
           category: "Plataforma Corporativa",
           title: "Áurea Web",
@@ -36,6 +38,22 @@ const resources = {
           title: "Template AureaShop",
           desc: "Plantilla base modular para tiendas online. Arquitectura diseñada para escalabilidad y fácil mantenimiento.",
         },
+        // --- PROYECTOS NUEVOS (ES) ---
+        alirio: {
+          category: "Landing Page Corporativa",
+          title: "Energías Renovables Polo a Tierra",
+          desc: "Frontend moderno para la presentación de servicios y proyectos de la empresa Energías Renovables Polo a Tierra.",
+        },
+        flights: {
+          category: "Plataforma Full-Stack",
+          title: "Áurea Airlines",
+          desc: "Sistema de gestión de reservas aéreas con selección visual de asientos, estado de vuelos en tiempo real y autenticación segura.",
+        },
+        crud: {
+          category: "Arquitectura Desacoplada",
+          title: "Sistema de Seguimiento de Proyectos",
+          desc: "Sistema integral para gestión de proyectos usando Google Apps Script como API backend y Google Sheets como base de datos relacional con control de roles.",
+        }
       },
       stack: {
         overline: "Arsenal Tecnológico",
@@ -75,7 +93,6 @@ const resources = {
         connect: "Conectemos",
         check_repo: "Ver perfil",
       },
-      // --- SECCIÓN FOOTER AGREGADA (ES) ---
       footer: {
         rights: "Todos los derechos reservados.",
         attribution: "Icono de Dragon Ball por ©Toei Animation",
@@ -105,6 +122,8 @@ const resources = {
           "Projects built with a functional, visual, and scalable approach.",
         code: "Code",
         demo: "Live Demo",
+        show_more: "View more projects",
+        show_less: "View less",
         aurea: {
           category: "Corporate Platform",
           title: "Áurea Web",
@@ -115,6 +134,22 @@ const resources = {
           title: "AureaShop Template",
           desc: "Modular base template for online stores. Architecture designed for scalability and easy maintenance.",
         },
+        // --- PROYECTOS NUEVOS (EN) ---
+        alirio: {
+          category: "Corporate Landing Page",
+          title: "Energías Renovables Polo a Tierra", // Mantenemos el nombre de la empresa original
+          desc: "Modern frontend for showcasing services and projects for the renewable energy company Energías Renovables Polo a Tierra.",
+        },
+        flights: {
+          category: "Full-Stack Platform",
+          title: "Áurea Airlines",
+          desc: "Flight reservation management system featuring visual seat selection, real-time flight status, and secure authentication.",
+        },
+        crud: {
+          category: "Decoupled Architecture",
+          title: "Project Tracking System",
+          desc: "Comprehensive project management system utilizing Google Apps Script as a backend API and Google Sheets as a relational database with role-based access control.",
+        }
       },
       stack: {
         overline: "Tech Arsenal",
@@ -153,7 +188,6 @@ const resources = {
         connect: "Let's Connect",
         check_repo: "View Profile",
       },
-      // --- SECCIÓN FOOTER AGREGADA (EN) ---
       footer: {
         rights: "All rights reserved.",
         attribution: "Dragon Ball icon by ©Toei Animation",
