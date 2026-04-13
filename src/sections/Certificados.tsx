@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 // ✅ Interfaz
 interface Certification {
@@ -32,15 +32,14 @@ const ImageCarousel = ({ images, title }: ImageCarouselProps) => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === "ArrowLeft") prevSlide();
+      if (e.key === "ArrowRight") nextSlide();
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [nextSlide]);
 
   return (
-    // Se mantiene tu estructura, se adaptará al nuevo ancho del padre (max-w-2xl)
     <div className="relative w-full h-64 md:h-80 bg-slate-100 dark:bg-black/40 rounded-lg overflow-hidden group/slider">
       <div className="w-full h-full flex items-center justify-center transition-opacity duration-500">
         <img
@@ -62,7 +61,19 @@ const ImageCarousel = ({ images, title }: ImageCarouselProps) => {
                        transition-all opacity-0 group-hover/slider:opacity-100"
             aria-label="Imagen anterior"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m15 18-6-6 6-6" />
+            </svg>
           </button>
 
           <button
@@ -75,7 +86,19 @@ const ImageCarousel = ({ images, title }: ImageCarouselProps) => {
                        transition-all opacity-0 group-hover/slider:opacity-100"
             aria-label="Siguiente imagen"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
           </button>
 
           <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
@@ -83,9 +106,10 @@ const ImageCarousel = ({ images, title }: ImageCarouselProps) => {
               <div
                 key={idx}
                 className={`transition-all duration-300 rounded-full shadow-sm
-                  ${idx === currentIndex 
-                    ? 'bg-amber-500 w-6 h-2' 
-                    : 'bg-slate-300/50 dark:bg-white/30 w-2 h-2'
+                  ${
+                    idx === currentIndex
+                      ? "bg-amber-500 w-6 h-2"
+                      : "bg-slate-300/50 dark:bg-white/30 w-2 h-2"
                   }`}
               />
             ))}
@@ -98,78 +122,112 @@ const ImageCarousel = ({ images, title }: ImageCarouselProps) => {
 
 export const Highlights = () => {
   const [showAll, setShowAll] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
   const { t } = useTranslation();
+
+  // Referencia para controlar el scroll de la sección
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Detectar móvil de forma dinámica para evitar errores de renderizado
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile(); // Check inicial
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const certifications: Certification[] = [
     {
       title: "Fundamentals Python",
       year: "2025",
-      desc: t('certifications.items.python'),
+      desc: t("certifications.items.python"),
       images: [
         "Python_Essentials_1_certificate_john_lievano.jpg",
-        "Python_Essentials_2_certificate_john_lievano.jpg"
-      ]
+        "Python_Essentials_2_certificate_john_lievano.jpg",
+      ],
     },
     {
       title: "JavaScript Essentials",
       year: "2025",
-      desc: t('certifications.items.js'),
-      images: ["JavaScript_Essentials_certificate_john_lievano.jpg"]
+      desc: t("certifications.items.js"),
+      images: ["JavaScript_Essentials_certificate_john_lievano.jpg"],
     },
     {
       title: "HTML Essentials",
       year: "2025",
-      desc: t('certifications.items.html'),
-      images: ["HTML_Essentials_certificate_john_llievano.jpg"]
+      desc: t("certifications.items.html"),
+      images: ["HTML_Essentials_certificate_john_llievano.jpg"],
     },
     {
       title: "Cybersecurity (CAPC)",
       year: "2024",
-      desc: t('certifications.items.cyber'),
-      images: ["Cybersecurity_Awareness_john_lievano.jpg"]
+      desc: t("certifications.items.cyber"),
+      images: ["Cybersecurity_Awareness_john_lievano.jpg"],
     },
     {
       title: "Scrum Foundation (SFPC)",
       year: "2024",
-      desc: t('certifications.items.scrum'),
-      images: ["Certificate_Scrum_Foundation_john_lievano.jpg"]
+      desc: t("certifications.items.scrum"),
+      images: ["Certificate_Scrum_Foundation_john_lievano.jpg"],
     },
     {
       title: "UOnline Inglés",
       year: "2022",
-      desc: t('certifications.items.english'),
-      images: ["UOnline English Certificate.jpg"]
+      desc: t("certifications.items.english"),
+      images: ["UOnline English Certificate.jpg"],
     },
   ];
 
+  // Lógica de visibilidad responsiva
+  const initialLimit = isMobile ? 3 : 4;
   const visibleCertifications = showAll
-  ? certifications
-  : certifications.slice(0, window.innerWidth < 768 ? 3 : 4);
+    ? certifications
+    : certifications.slice(0, initialLimit);
 
+  // Cierra modal con Escape
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedCert(null);
+      if (e.key === "Escape") setSelectedCert(null);
     };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
   }, []);
+
+  // Función de toggle con scroll automático
+  const handleToggle = () => {
+    if (!showAll) {
+      setShowAll(true);
+      // Bajamos el valor de 350 a 150 para que el despliegue sea corto y sutil
+      setTimeout(() => {
+        window.scrollBy({ top: 150, behavior: 'smooth' });
+      }, 100);
+    } else {
+      // Mantenemos el scroll negativo para que al cerrar suba un poco
+      window.scrollBy({ top: -450, behavior: 'smooth' });
+      setTimeout(() => {
+        setShowAll(false);
+      }, 300);
+    }
+  };
 
   return (
     <section
       id="certificados"
+      ref={sectionRef}
       className="relative py-32 transition-colors duration-300 
                  bg-gradient-to-b from-slate-100 to-slate-200 
                  dark:bg-gradient-to-b dark:from-[#050505] dark:to-[#0B1120]"
     >
       <div className="max-w-6xl px-6 mx-auto relative z-10">
-
         <div className="mb-16 text-center">
           <h3 className="mb-4 text-sm font-bold tracking-[0.5em] uppercase transition-colors text-slate-500 dark:text-gray-500">
-            {t('certifications.overline')}
+            {t("certifications.overline")}
           </h3>
           <h2 className="text-4xl font-black tracking-tighter transition-colors md:text-5xl text-slate-900 dark:text-white">
-            {t('certifications.title')}
+            {t("certifications.title")}
           </h2>
         </div>
 
@@ -188,10 +246,22 @@ export const Highlights = () => {
                 <span className="text-xs font-mono transition-colors text-slate-400 dark:text-gray-500">
                   {cert.year}
                 </span>
-                
+
                 <div className="p-2 rounded-full bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-gray-500 group-hover:bg-amber-100 dark:group-hover:bg-[#FCD34D]/20 group-hover:text-amber-600 dark:group-hover:text-[#FCD34D] transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M15 3h6v6" />
+                    <path d="M10 14 21 3" />
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                   </svg>
                 </div>
               </div>
@@ -207,35 +277,37 @@ export const Highlights = () => {
           ))}
         </div>
 
+        {/* BOTÓN CON LÓGICA DE SCROLL */}
         {certifications.length > 4 && (
           <div className="mt-12 text-center">
             <button
-              onClick={() => setShowAll(!showAll)}
+              onClick={handleToggle}
               className="px-8 py-3 text-sm font-bold tracking-wider uppercase transition-all duration-300 border rounded-full 
                          text-slate-600 border-slate-300 hover:bg-slate-200 hover:text-slate-900
                          dark:text-gray-400 dark:border-white/10 dark:hover:bg-white/5 dark:hover:text-white
                          active:scale-95"
             >
-              {showAll ? t('certifications.view_less') : t('certifications.view_more')}
+              {showAll
+                ? t("certifications.view_less")
+                : t("certifications.view_more")}
             </button>
           </div>
         )}
       </div>
 
-      {/* --- MODAL AJUSTADO (MÁS PEQUEÑO Y BAJADO) --- */}
+      {/* --- MODAL --- */}
       {selectedCert && (
-        <div 
-          // 1. AJUSTE: Cambiamos 'items-center' por 'items-start' + 'pt-24'
-          // Esto baja la modal para que no toque el navbar
+        <div
           className="fixed inset-0 z-[999] flex items-start justify-center pt-24 p-4
                      bg-slate-900/80 backdrop-blur-sm animate-in fade-in duration-200"
-          onClick={() => setSelectedCert(null)} 
+          onClick={() => setSelectedCert(null)}
         >
-          <div 
-            // 2. AJUSTE: Cambiamos 'max-w-4xl' por 'max-w-2xl' (más pequeña)
+          <div
             className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto shadow-2xl rounded-2xl animate-in zoom-in-95 duration-200
                        bg-white dark:bg-[#111] border border-slate-200 dark:border-white/10"
-            onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()} 
+            onClick={(e: React.MouseEvent<HTMLDivElement>) =>
+              e.stopPropagation()
+            }
           >
             <div className="flex items-center justify-between p-4 px-6 border-b border-slate-100 dark:border-white/10 sticky top-0 bg-white dark:bg-[#111] z-10">
               <h3 className="text-lg font-bold text-slate-800 dark:text-white">
@@ -246,27 +318,44 @@ export const Highlights = () => {
                 className="p-2 rounded-full transition-colors text-slate-400 hover:bg-red-50 hover:text-red-500 
                            dark:hover:bg-red-500/10 dark:hover:text-red-400"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 18 12"/></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 18 12" />
+                </svg>
               </button>
             </div>
 
             <div className="p-6">
-              <ImageCarousel images={selectedCert.images} title={selectedCert.title} />
-              
+              <ImageCarousel
+                images={selectedCert.images}
+                title={selectedCert.title}
+              />
+
               <div className="mt-6 flex justify-between items-center text-sm border-t border-slate-100 dark:border-white/5 pt-4">
-                 <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-gray-400 font-mono text-xs">
-                    {selectedCert.year}
-                 </span>
-                 <p className="text-slate-600 dark:text-gray-400 max-w-lg text-right">
-                    {selectedCert.desc}
-                 </p>
+                <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-gray-400 font-mono text-xs">
+                  {selectedCert.year}
+                </span>
+                <p className="text-slate-600 dark:text-gray-400 max-w-lg text-right">
+                  {selectedCert.desc}
+                </p>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      <div className="absolute bottom-0 left-0 w-full h-32 pointer-events-none 
+      <div
+        className="absolute bottom-0 left-0 w-full h-32 pointer-events-none 
                       bg-gradient-to-t 
                       from-slate-100 via-slate-200/50 to-transparent 
                       dark:from-[#050505] dark:via-[#050505]/50 dark:to-transparent"

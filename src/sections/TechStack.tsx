@@ -1,65 +1,151 @@
 import { useTranslation } from "react-i18next";
 
+type Skill = {
+  name: string;
+  icon: string;
+  darkInvert?: boolean;
+  githubIcon?: boolean;
+};
+
+type Category = {
+  label: string;
+  skills: Skill[];
+};
+
 export const TechStack = () => {
   const { t } = useTranslation();
 
-  const skills = [
-    // Agregado TypeScript
-    { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-    { name: "JavaScript (ES6+)", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-    // Agregado Next.js
-    { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-    { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-    // Eliminado Django
-    { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-    { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
-    { name: "Git / GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+  const frontendSkills: Skill[] = [
+    {
+      name: "TypeScript",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    },
+    {
+      name: "JavaScript (ES6+)",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    },
+    {
+      name: "React",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    },
+    {
+      name: "Next.js",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+      darkInvert: true,
+    },
   ];
 
+  const backendSkills: Skill[] = [
+    {
+      name: "Node.js",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    },
+    {
+      name: "Python",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    },
+  ];
+
+  const databaseSkills: Skill[] = [
+    {
+      name: "PostgreSQL",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    },
+  ];
+
+  const versionSkills: Skill[] = [
+    {
+      name: "Git / GitHub",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      githubIcon: true,
+    },
+  ];
+
+  // Componente reutilizable para las tarjetas de skills
+  const SkillCard = ({ s }: { s: Skill }) => (
+    <div
+      key={s.name}
+      // AGREGADO: h-full, w-full y min-h-[140px] para que todos sean cuadrados idénticos
+      className="group relative flex flex-col items-center justify-center p-6 h-full w-full min-h-[140px] transition-all duration-300 border rounded-xl cursor-default
+                 bg-white border-slate-300 shadow-sm
+                 dark:bg-white/5 dark:border-white/10 dark:shadow-none
+                 hover:-translate-y-2 hover:shadow-lg hover:border-amber-400
+                 dark:hover:bg-white/10 dark:hover:border-[#FCD34D]"
+    >
+      {/* shrink-0 evita que el icono se deforme si la tarjeta se ajusta */}
+      <div className="relative w-12 h-12 mb-4 transition-all duration-300 group-hover:scale-110 shrink-0">
+        <img
+          src={s.icon}
+          alt={s.name}
+          className={`object-contain w-full h-full ${
+            s.githubIcon || s.darkInvert ? "dark:invert" : ""
+          }`}
+        />
+      </div>
+      <span className="text-sm font-bold text-center transition-colors text-slate-900 dark:text-white">
+        {s.name}
+      </span>
+    </div>
+  );
+
   return (
-    <section
-      id="stack"
-      className="relative py-24 transition-colors duration-300 bg-transparent"
-    > 
+    <section id="stack" className="relative py-24 transition-colors duration-300 bg-transparent">
       <div className="max-w-6xl px-6 mx-auto">
-        
         <div className="mb-16 text-center">
           <h3 className="text-sm font-bold tracking-[0.5em] uppercase transition-colors text-slate-500 dark:text-gray-500 mb-4">
-            {t('stack.overline')}
+            {t("stack.overline")}
           </h3>
           <h2 className="text-3xl md:text-4xl font-black tracking-tighter transition-colors text-slate-900 dark:text-white">
-            {t('stack.title')}
+            {t("stack.title")}
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
-          {skills.map((s) => (
-            <div
-              key={s.name}
-              className="group relative flex flex-col items-center justify-center p-6 transition-all duration-300 border rounded-xl cursor-default
-                         bg-white border-slate-300 shadow-sm
-                         dark:bg-white/5 dark:border-white/10 dark:shadow-none
-                         hover:-translate-y-2 hover:shadow-lg hover:border-amber-400
-                         dark:hover:bg-white/10 dark:hover:border-[#FCD34D]"
-            >
-              {/* Nota: El icono de Next.js original es negro. Si en modo oscuro (Dark Mode)
-                  no se ve bien porque el fondo es oscuro, puedes agregar la clase "dark:invert" 
-                  a la etiqueta <img> de abajo.
-              */}
-              <div className="relative w-12 h-12 mb-4 transition-all duration-300 filter grayscale group-hover:grayscale-0 group-hover:scale-110">
-                <img 
-                  src={s.icon} 
-                  alt={s.name} 
-                  className="object-contain w-full h-full"
-                />
-              </div>
-
-              <span className="text-sm font-bold text-center transition-colors text-slate-600 dark:text-gray-400 group-hover:text-slate-900 dark:group-hover:text-white">
-                {s.name}
-              </span>
+        <div className="flex flex-col gap-12">
+          {/* FRONTEND - Grid base de 4 columnas */}
+          <div>
+            <h4 className="text-xs font-bold tracking-widest uppercase text-slate-400 dark:text-gray-500 mb-4">
+              {t("stack.categories.frontend")}
+            </h4>
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+              {frontendSkills.map((s) => <SkillCard key={s.name} s={s} />)}
             </div>
-          ))}
+          </div>
+
+          {/* BACKEND Y DATABASE - Usamos el MISMO grid de 4 columnas para igualar tamaños */}
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+            
+            {/* Backend ocupa 2 columnas de las 4 disponibles */}
+            <div className="col-span-2">
+              <h4 className="text-xs font-bold tracking-widest uppercase text-slate-400 dark:text-gray-500 mb-4">
+                {t("stack.categories.backend")}
+              </h4>
+              <div className="grid grid-cols-2 gap-6">
+                {backendSkills.map((s) => <SkillCard key={s.name} s={s} />)}
+              </div>
+            </div>
+
+            {/* Database ocupa 1 columna de las 4 disponibles */}
+            <div className="col-span-1">
+              <h4 className="text-xs font-bold tracking-widest uppercase text-slate-400 dark:text-gray-500 mb-4">
+                {t("stack.categories.database")}
+              </h4>
+              <div className="grid grid-cols-1 gap-6">
+                {databaseSkills.map((s) => <SkillCard key={s.name} s={s} />)}
+              </div>
+            </div>
+
+          </div>
+
+          {/* CONTROL DE VERSIONES */}
+          <div>
+            <h4 className="text-xs font-bold tracking-widest uppercase text-slate-400 dark:text-gray-500 mb-4">
+              {t("stack.categories.version_control")}
+            </h4>
+            {/* Mismo grid de 4 columnas */}
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+              {versionSkills.map((s) => <SkillCard key={s.name} s={s} />)}
+            </div>
+          </div>
         </div>
       </div>
     </section>
