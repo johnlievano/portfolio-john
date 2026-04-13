@@ -7,11 +7,6 @@ type Skill = {
   githubIcon?: boolean;
 };
 
-type Category = {
-  label: string;
-  skills: Skill[];
-};
-
 export const TechStack = () => {
   const { t } = useTranslation();
 
@@ -65,14 +60,12 @@ export const TechStack = () => {
   const SkillCard = ({ s }: { s: Skill }) => (
     <div
       key={s.name}
-      // AGREGADO: h-full, w-full y min-h-[140px] para que todos sean cuadrados idénticos
       className="group relative flex flex-col items-center justify-center p-6 h-full w-full min-h-[140px] transition-all duration-300 border rounded-xl cursor-default
                  bg-white border-slate-300 shadow-sm
                  dark:bg-white/5 dark:border-white/10 dark:shadow-none
                  hover:-translate-y-2 hover:shadow-lg hover:border-amber-400
                  dark:hover:bg-white/10 dark:hover:border-[#FCD34D]"
     >
-      {/* shrink-0 evita que el icono se deforme si la tarjeta se ajusta */}
       <div className="relative w-12 h-12 mb-4 transition-all duration-300 group-hover:scale-110 shrink-0">
         <img
           src={s.icon}
@@ -101,7 +94,7 @@ export const TechStack = () => {
         </div>
 
         <div className="flex flex-col gap-12">
-          {/* FRONTEND - Grid base de 4 columnas */}
+          {/* FRONTEND */}
           <div>
             <h4 className="text-xs font-bold tracking-widest uppercase text-slate-400 dark:text-gray-500 mb-4">
               {t("stack.categories.frontend")}
@@ -111,10 +104,8 @@ export const TechStack = () => {
             </div>
           </div>
 
-          {/* BACKEND Y DATABASE - Usamos el MISMO grid de 4 columnas para igualar tamaños */}
+          {/* BACKEND Y DATABASE */}
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-            
-            {/* Backend ocupa 2 columnas de las 4 disponibles */}
             <div className="col-span-2">
               <h4 className="text-xs font-bold tracking-widest uppercase text-slate-400 dark:text-gray-500 mb-4">
                 {t("stack.categories.backend")}
@@ -124,7 +115,6 @@ export const TechStack = () => {
               </div>
             </div>
 
-            {/* Database ocupa 1 columna de las 4 disponibles */}
             <div className="col-span-1">
               <h4 className="text-xs font-bold tracking-widest uppercase text-slate-400 dark:text-gray-500 mb-4">
                 {t("stack.categories.database")}
@@ -133,7 +123,6 @@ export const TechStack = () => {
                 {databaseSkills.map((s) => <SkillCard key={s.name} s={s} />)}
               </div>
             </div>
-
           </div>
 
           {/* CONTROL DE VERSIONES */}
@@ -141,7 +130,6 @@ export const TechStack = () => {
             <h4 className="text-xs font-bold tracking-widest uppercase text-slate-400 dark:text-gray-500 mb-4">
               {t("stack.categories.version_control")}
             </h4>
-            {/* Mismo grid de 4 columnas */}
             <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
               {versionSkills.map((s) => <SkillCard key={s.name} s={s} />)}
             </div>
