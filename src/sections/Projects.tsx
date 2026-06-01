@@ -25,7 +25,7 @@ export const Projects = () => {
       category: t("projects.alirio.category", "Landing Page Corporativa"),
       desc: t("projects.alirio.desc", "Frontend moderno para la presentación de servicios y proyectos de la empresa Energías Renovables Polo a Tierra."),
       stack: ["React", "Tailwind CSS", "Vite", "Responsive Design"],
-      link: "https://www.energiaspoloatierra.com/",
+      link: "https://energias-renovables-polo-a-tierra-m.vercel.app/",
       github: "https://github.com/aureawebinfo/energias-renovables-polo-a-tierra",
       imageLight: "/energias_polo_a_tierra.webp",
       imageDark: "/energias_polo_a_tierra.webp",
