@@ -38,6 +38,11 @@ const resources = {
           title: "Template AureaShop",
           desc: "Plantilla base modular para tiendas online. Arquitectura diseñada para escalabilidad y fácil mantenimiento.",
         },
+        erp: {
+          category: "Sistema de Gestión Empresarial",
+          title: "Plataforma ERP Empresarial",
+          desc: "Solución ERP centralizada para la gestión de empresas, usuarios y beneficios para empleados. Incluye administración de roles, módulos de recursos humanos y panel de control administrativo.",
+        },
         // --- PROYECTOS NUEVOS (ES) ---
         alirio: {
           category: "Landing Page Corporativa",
@@ -46,14 +51,14 @@ const resources = {
         },
         flights: {
           category: "Plataforma Full-Stack",
-          title: "Áurea Airlines",
+          title: "Aero Airlines",
           desc: "Sistema de gestión de reservas aéreas con selección visual de asientos, estado de vuelos en tiempo real y autenticación segura.",
         },
         crud: {
           category: "Arquitectura Desacoplada",
           title: "Sistema de Seguimiento de Proyectos",
           desc: "Sistema integral para gestión de proyectos usando Google Apps Script como API backend y Google Sheets como base de datos relacional con control de roles.",
-        }
+        },
       },
       stack: {
         overline: "Arsenal Tecnológico",
@@ -61,8 +66,8 @@ const resources = {
         categories: {
           frontend: "Frontend",
           backend: "Backend",
-          database: "Base de datos", 
-          version_control: "Version Control", 
+          database: "Base de datos",
+          version_control: "Version Control",
         },
       },
       certifications: {
@@ -134,6 +139,11 @@ const resources = {
           title: "AureaShop Template",
           desc: "Modular base template for online stores. Architecture designed for scalability and easy maintenance.",
         },
+        erp: {
+          category: "Enterprise Management System",
+          title: "Enterprise ERP Platform",
+          desc: "Centralized ERP solution for managing companies, users, and employee benefits. Includes role management, human resources modules, and an administrative control panel.",
+        },
         // --- PROYECTOS NUEVOS (EN) ---
         alirio: {
           category: "Corporate Landing Page",
@@ -142,14 +152,14 @@ const resources = {
         },
         flights: {
           category: "Full-Stack Platform",
-          title: "Áurea Airlines",
+          title: "Aero Airlines",
           desc: "Flight reservation management system featuring visual seat selection, real-time flight status, and secure authentication.",
         },
         crud: {
           category: "Decoupled Architecture",
           title: "Project Tracking System",
           desc: "Comprehensive project management system utilizing Google Apps Script as a backend API and Google Sheets as a relational database with role-based access control.",
-        }
+        },
       },
       stack: {
         overline: "Tech Arsenal",
