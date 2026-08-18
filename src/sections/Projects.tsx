@@ -118,7 +118,7 @@ export const Projects = () => {
     },
   ];
 
-  const initialLimit = 3;
+  const initialLimit = 4;
   const visibleProjects =
     showAll || isExiting ? projects : projects.slice(0, initialLimit);
 
@@ -163,7 +163,7 @@ export const Projects = () => {
           )}
         </motion.p>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2">
           {visibleProjects.map((p, index) => {
             const isExtraProject = index >= initialLimit;
             return (

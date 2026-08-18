@@ -202,19 +202,19 @@ export const Home = () => {
 
             {/* ROL */}
             <div className="overflow-hidden mb-6 flex justify-center md:justify-start">
-  <motion.h2
-    initial={{ y: 50, opacity: 0 }}
-    animate={{ y: 0, opacity: 1 }}
-    transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-    className="font-mono text-base font-bold tracking-[0.2em] uppercase transition-colors text-amber-600 dark:text-[#FCD34D] md:text-lg flex items-center gap-3 flex-wrap justify-center md:justify-start"
-  >
-    <span>{t("hero.role", "DESARROLLADOR WEB JUNIOR")}</span>
-    <span className="text-slate-400 dark:text-slate-500 font-normal">
-      |
-    </span>
-    <span>{t("hero.experience", "+1 AÑO DE EXP")}</span>
-  </motion.h2>
-</div>
+              <motion.h2
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+                className="font-mono text-base font-bold tracking-[0.2em] uppercase transition-colors text-amber-600 dark:text-[#FCD34D] md:text-lg flex items-center gap-3 flex-wrap justify-center md:justify-start"
+              >
+                <span>{t("hero.role", "DESARROLLADOR WEB JUNIOR")}</span>
+                <span className="text-slate-400 dark:text-slate-500 font-normal">
+                  |
+                </span>
+                <span>{t("hero.experience", "+1 AÑO DE EXP")}</span>
+              </motion.h2>
+            </div>
 
             {/* DESCRIPCIÓN AISLADA */}
             <div className="max-w-lg mx-auto md:mx-0 mb-8 min-h-[80px]">
@@ -248,7 +248,7 @@ export const Home = () => {
                     },
                   }}
                   href="#proyectos"
-                  className="w-full md:w-auto px-8 py-3.5 font-bold text-center text-black transition-transform rounded-full bg-[#FCD34D] hover:scale-105 shadow-[0_0_20px_rgba(252,211,77,0.3)] hover:shadow-[0_0_30px_rgba(252,211,77,0.5)]"
+                  className="w-full md:w-auto px-8 py-3.5 font-bold text-center text-black transition-transform rounded-sm bg-[#FCD34D] hover:scale-105 shadow-[0_0_20px_rgba(252,211,77,0.3)] hover:shadow-[0_0_30px_rgba(252,211,77,0.5)]"
                 >
                   {t("hero.cta_projects", "Ver Proyectos")}
                 </motion.a>
@@ -264,9 +264,9 @@ export const Home = () => {
                   }}
                   href={cvFileUrl}
                   onClick={handleDownload}
-                  className="w-full md:w-auto flex justify-center items-center gap-2 px-8 py-3.5 font-bold transition-all duration-300 border-2 rounded-full cursor-pointer
-                          border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white hover:shadow-lg
-                          dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                  className="w-full md:w-auto flex justify-center items-center gap-2 px-8 py-3.5 font-bold transition-all duration-300 border-2 rounded-sm cursor-pointer
+        border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white hover:shadow-lg
+        dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
                 >
                   {t("hero.cta_cv", "Descargar CV")}{" "}
                   <DownloadSimple size={20} weight="bold" />

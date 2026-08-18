@@ -18,15 +18,13 @@ const resources = {
         experience: "+1 AÑO DE EXP",
         description_normal:
           "Especializado en transformar ideas complejas en productos digitales funcionales, optimizados para ",
-        description_bold:
-          "rendimiento, escalabilidad y diseño responsive.",
+        description_bold: "rendimiento, escalabilidad y diseño responsive.",
         cta_projects: "Ver Proyectos",
         cta_cv: "Descargar CV",
       },
       projects: {
         section_title: "Proyectos",
-        section_subtitle:
-          "Creados con enfoque funcional, visual y escalable.",
+        section_subtitle: "Creados con enfoque funcional, visual y escalable.",
         code: "Código",
         demo: "Demo Live",
         show_more: "Ver más proyectos",
@@ -70,6 +68,8 @@ const resources = {
           backend: "Backend",
           database: "Base de datos",
           version_control: "Version Control",
+          database_cloud: "Base de Datos & Cloud",
+          tools: "Herramientas",
         },
       },
       certifications: {
@@ -93,7 +93,7 @@ const resources = {
       contact: {
         title: "CONTACTO",
         subtitle:
-          "¿Te gustaría hablar conmigo, o te gustaría tener tu propia página web? No dudes en contactarme.",
+          "¿Buscas sumar a alguien comprometido con el código limpio y el buen diseño a tu equipo? Conversemos.",
         whatsapp_label: "WhatsApp",
         email_label: "Correo",
         send_msg: "Enviar mensaje",
@@ -121,8 +121,7 @@ const resources = {
         experience: "+1 YEAR OF EXP",
         description_normal:
           "Specialized in transforming complex ideas into functional digital products, optimized for ",
-        description_bold:
-          "performance, scalability, and responsive design.",
+        description_bold: "performance, scalability, and responsive design.",
         cta_projects: "View Projects",
         cta_cv: "Download CV",
       },
@@ -173,6 +172,8 @@ const resources = {
           backend: "Backend",
           database: "Database",
           version_control: "Version Control",
+          database_cloud: "Database & Cloud",
+          tools: "Tools",
         },
       },
       certifications: {
@@ -195,7 +196,7 @@ const resources = {
       contact: {
         title: "CONTACT",
         subtitle:
-          "Would you like to talk to me, or are you looking for your own website? Don't hesitate to reach out.",
+          "Are you looking to add someone committed to clean code and good design to your team? Let's talk.",
         whatsapp_label: "WhatsApp",
         email_label: "Email",
         send_msg: "Send Message",

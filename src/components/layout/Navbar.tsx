@@ -16,10 +16,11 @@ export const Navbar = () => {
   }, []);
 
   const links = [
-    { name: t("nav.home"), href: "#inicio" },
-    { name: t("nav.projects"), href: "#proyectos" },
-    { name: t("nav.certificates"), href: "#certificados" },
-    { name: t("nav.skills"), href: "#stack" },
+    { name: t("nav.home"), href: "#inicio", icon: "/esferas/esfera1.png" },
+    { name: t("nav.projects"), href: "#proyectos", icon: "/esferas/esfera2.png" },
+    { name: t("nav.certificates"), href: "#certificados", icon: "/esferas/esfera3.png" },
+    // Forzamos un tamaño ligeramente mayor o un scale para compensar el padding interno del PNG de la 4ta esfera
+    { name: t("nav.skills"), href: "#stack", icon: "/esferas/esfera4.png", extraClass: "w-8 h-8 scale-124.5" },
   ];
 
   return (
@@ -127,18 +128,24 @@ export const Navbar = () => {
             key={link.href}
             href={link.href}
             onClick={() => setIsOpen(false)}
-            className="text-lg font-medium transition-colors text-slate-700 dark:text-gray-300 hover:text-[#FCD34D]"
+            className="group flex items-center gap-4 text-lg font-medium transition-colors text-slate-700 dark:text-gray-300 hover:text-[#FCD34D]"
           >
+            <img 
+              src={link.icon} 
+              alt={`Icono de ${link.name}`} 
+              className={`w-7 h-7 object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-md ${link.extraClass || ""}`}
+            />
             {link.name}
           </a>
         ))}
 
         <div className="w-full h-[1px] bg-slate-200 dark:bg-white/10" />
 
+        {/* Botón de contáctame limpio sin esfera */}
         <a
           href="#contacto"
           onClick={() => setIsOpen(false)}
-          className="w-full px-4 py-3 mt-2 font-bold text-center text-black rounded-sm bg-[#FCD34D]"
+          className="flex items-center justify-center w-full px-4 py-3 mt-2 font-bold text-center text-black rounded-sm bg-[#FCD34D]"
         >
           {t("nav.contact")}
         </a>
