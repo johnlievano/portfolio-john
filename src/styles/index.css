@@ -116,3 +116,10 @@ html {
   scrollbar-width: thin;
   scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
 }
+
+/* ======================================================
+   OCULTAR NAVBAR CUANDO HAY UN MODAL ABIERTO
+====================================================== */
+body.modal-open .navbar {
+  display: none;
+}

@@ -24,40 +24,41 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300
-        ${
-          scrolled || isOpen
-            ? "backdrop-blur-md border-b bg-white/80 border-slate-200 dark:bg-[#050505]/80 dark:border-white/5"
-            : "bg-transparent border-transparent"
-        }`}
+      className={`navbar fixed top-0 w-full z-50 transition-all duration-300
+    ${
+      scrolled || isOpen
+        ? "backdrop-blur-md border-b bg-white/80 border-slate-200 dark:bg-[#050505]/80 dark:border-white/5"
+        : "bg-transparent border-transparent"
+    }`}
     >
       <div className="relative flex items-center justify-between px-6 py-4 mx-auto max-w-7xl">
-        
         {/* IZQUIERDA: Logo con Onda de Ki */}
         <div className="flex-shrink-0">
           <a
             href="#inicio"
             className="group relative flex items-center text-xl font-black tracking-tighter uppercase transition-colors"
           >
-            <span className="text-slate-900 dark:text-white transition-colors z-10">J</span>
-            
+            <span className="text-slate-900 dark:text-white transition-colors z-10">
+              J
+            </span>
+
             {/* CONTENEDOR DE LA ESFERA Y EL KI */}
             <div className="relative mx-0.5 flex items-center justify-center">
-              
               {/* ONDA DE KI (AURORA) */}
-              <div className="absolute inset-0 rounded-full blur-md opacity-0 transition-all duration-500 ease-out
+              <div
+                className="absolute inset-0 rounded-full blur-md opacity-0 transition-all duration-500 ease-out
                               group-hover:opacity-100 group-hover:scale-150 group-hover:animate-pulse
-                              bg-orange-500 dark:bg-[#FCD34D]" 
+                              bg-orange-500 dark:bg-[#FCD34D]"
               />
 
               {/* LA ESFERA DEL DRAGÓN */}
-              <img 
-                src="/logo.png" 
-                alt="Esfera del Dragón" 
+              <img
+                src="/esferas/esfera1.png"
+                alt="Esfera del Dragón"
                 className="relative z-10 h-6 w-auto object-contain transition-all duration-300"
               />
             </div>
-            
+
             <span className="text-slate-900 dark:text-white transition-colors z-10">
               hnDev<span className="text-[#FCD34D]">.</span>
             </span>

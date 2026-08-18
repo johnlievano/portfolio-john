@@ -1,22 +1,14 @@
-import { useState, useEffect, useRef } from "react";
-import { ArrowSquareOut, GithubLogo } from "@phosphor-icons/react";
+import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { ProjectCassette } from "../components/effects/ProjectCassette";
+import { ArcadeToggleButton } from "../components/effects/ArcadeButton";
+import { motion } from "framer-motion"; // <-- 1. Agregado framer-motion
 
 export const Projects = () => {
   const { t } = useTranslation();
   const [showAll, setShowAll] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  // Estado para controlar la animación de salida
   const [isExiting, setIsExiting] = useState(false);
-
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   const projects = [
     {
@@ -31,8 +23,8 @@ export const Projects = () => {
       link: "https://energias-renovables-polo-a-tierra-m.vercel.app/",
       github:
         "https://github.com/aureawebinfo/energias-renovables-polo-a-tierra",
-      imageLight: "/energias_polo_a_tierra.webp",
-      imageDark: "/energias_polo_a_tierra.webp",
+      imageLight: "/projects/energias_polo_a_tierra.webp",
+      imageDark: "/projects/energias_polo_a_tierra.webp",
     },
     {
       id: "aurea",
@@ -42,10 +34,9 @@ export const Projects = () => {
       stack: ["React", "TypeScript", "Vite", "Frontend Moderno"],
       link: "https://aurea-web.com/Index",
       github: "https://github.com/aureawebinfo/aurea-web",
-      imageLight: "/aurea-banner-black.webp",
-      imageDark: "/aurea-banner-black.webp",
+      imageLight: "/projects/aurea-banner-black.webp",
+      imageDark: "/projects/aurea-banner-black.webp",
     },
-
     {
       id: "erp",
       title: t("projects.erp.title", "Plataforma ERP Empresarial"),
@@ -64,10 +55,9 @@ export const Projects = () => {
       ],
       link: "https://proposal-template-one.vercel.app/",
       github: "https://github.com/aureawebinfo/ccb-template",
-      imageLight: "/ERP_Template.webp",
-      imageDark: "/ERP_Template.webp",
+      imageLight: "/projects/ERP_Template.webp",
+      imageDark: "/projects/ERP_Template.webp",
     },
-
     {
       id: "template",
       title: t("projects.template.title"),
@@ -82,8 +72,8 @@ export const Projects = () => {
       ],
       link: "https://template-aurea-shop.vercel.app/",
       github: "https://github.com/johnlievano/Template_AureaShop",
-      imageLight: "/aurea-template-white.webp",
-      imageDark: "/aurea-template-black.webp",
+      imageLight: "/projects/aurea-template-white.webp",
+      imageDark: "/projects/aurea-template-black.webp",
     },
     {
       id: "flights",
@@ -103,8 +93,8 @@ export const Projects = () => {
       ],
       link: "https://flight-booking-platform-eight.vercel.app/",
       github: "https://github.com/johnlievano/flight-booking-platform",
-      imageLight: "/flight-booking-platform.webp",
-      imageDark: "/flight-booking-platform.webp",
+      imageLight: "/projects/flight-booking-platform.webp",
+      imageDark: "/projects/flight-booking-platform.webp",
     },
     {
       id: "crud",
@@ -123,14 +113,12 @@ export const Projects = () => {
       ],
       link: "https://prueba-tecnica-lilac.vercel.app/",
       github: "https://github.com/johnlievano/Prueba-Tecnica",
-      imageLight: "/crud.webp",
-      imageDark: "/crud.webp",
+      imageLight: "/projects/crud.webp",
+      imageDark: "/projects/crud.webp",
     },
   ];
 
-  const initialLimit = isMobile ? 3 : 4;
-
-  // Si estamos en proceso de salida, mantenemos todos visibles pero con opacidad 0
+  const initialLimit = 3;
   const visibleProjects =
     showAll || isExiting ? projects : projects.slice(0, initialLimit);
 
@@ -141,12 +129,8 @@ export const Projects = () => {
         window.scrollBy({ top: 150, behavior: "smooth" });
       }, 100);
     } else {
-      // 1. Iniciamos la animación de salida
       setIsExiting(true);
-      // 2. Subimos un poco el scroll
       window.scrollBy({ top: -450, behavior: "smooth" });
-
-      // 3. Esperamos a que la transición de CSS termine (300ms)
       setTimeout(() => {
         setShowAll(false);
         setIsExiting(false);
@@ -161,87 +145,46 @@ export const Projects = () => {
       className="relative z-10 py-20 transition-colors duration-300 mt-20 md:mt-0 rounded-t-[3rem] md:rounded-none bg-gradient-to-b from-slate-100 to-slate-300 dark:bg-gradient-to-b dark:from-[#050505] dark:to-[#0B1120]"
     >
       <div className="max-w-6xl px-6 mx-auto">
-        <h2 className="mb-2 text-4xl font-bold transition-colors text-slate-900 dark:text-white">
-          {t("projects.section_title")}
+        <h2 className="section-title-arcade mb-3 text-slate-900 dark:text-white transition-colors">
+          {t("projects.section_title", "Proyectos")}
         </h2>
-        <p className="mb-12 transition-colors text-slate-600 dark:text-gray-400">
-          {t("projects.section_subtitle")}
-        </p>
 
-        <div className="grid gap-8 md:grid-cols-2">
+        {/* 2. Subtítulo actualizado con el mismo estilo y animación del Hero */}
+        <motion.p
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-12 font-mono text-sm font-bold tracking-[0.2em] uppercase transition-colors text-slate-600 dark:text-slate-400"
+        >
+          {t(
+            "projects.section_subtitle",
+            "Creados con enfoque funcional, visual y escalable.",
+          )}
+        </motion.p>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {visibleProjects.map((p, index) => {
-            // Lógica para aplicar la clase de desvanecimiento solo a los proyectos extra
             const isExtraProject = index >= initialLimit;
-
             return (
-              <div
+              <ProjectCassette
                 key={p.id}
-                className={`group flex flex-col border rounded-2xl overflow-hidden bg-white border-slate-300 shadow-xl shadow-slate-300/40 dark:bg-white/5 dark:border-white/10 dark:shadow-none hover:border-amber-400/50 dark:hover:border-[#FCD34D]/50
-                transition-all duration-300 
-                ${isExtraProject && isExiting ? "opacity-0 scale-95" : "opacity-100 scale-100"}
-                ${isExtraProject && !showAll && !isExiting ? "hidden" : "flex"}`}
-              >
-                <a
-                  href={p.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative w-full h-72 overflow-hidden bg-slate-200 dark:bg-slate-800 block"
-                >
-                  <img
-                    src={p.imageLight}
-                    alt={p.title}
-                    className="block dark:hidden w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <img
-                    src={p.imageDark}
-                    alt={p.title}
-                    className="hidden dark:block w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
-                </a>
-
-                <div className="flex flex-col flex-grow p-6">
-                  <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-[#FCD34D]">
-                    {p.category}
-                  </span>
-                  <h3 className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">
-                    {p.title}
-                  </h3>
-                  <p className="mt-4 mb-6 text-slate-600 dark:text-gray-400 flex-grow text-sm">
-                    {p.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {p.stack.map((s) => (
-                      <span
-                        key={s}
-                        className="px-3 py-1 text-xs font-medium border rounded bg-slate-100 text-slate-700 border-slate-200 dark:bg-black/30 dark:text-gray-300 dark:border-white/10"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-5 pt-4 border-t border-slate-200 dark:border-white/10 text-slate-700 dark:text-white mt-auto">
-                    <a href={p.github} target="_blank">
-                      <GithubLogo size={24} />
-                    </a>
-                    <a href={p.link} target="_blank">
-                      <ArrowSquareOut size={24} />
-                    </a>
-                  </div>
-                </div>
-              </div>
+                project={p}
+                index={index}
+                hidden={isExtraProject && !showAll && !isExiting}
+                fading={isExtraProject && isExiting}
+              />
             );
           })}
         </div>
 
         <div className="flex justify-center mt-12">
-          <button
+          <ArcadeToggleButton
+            showAll={showAll}
             onClick={handleToggle}
-            className="px-8 py-3 font-semibold transition-all duration-300 rounded-full bg-slate-200 text-slate-800 hover:bg-amber-400 hover:text-slate-900 dark:bg-white/10 dark:text-white dark:hover:bg-[#FCD34D] dark:hover:text-black shadow-lg hover:shadow-xl hover:-translate-y-1"
-          >
-            {showAll
-              ? t("projects.show_less", "Ver menos")
-              : t("projects.show_more", "Ver más proyectos")}
-          </button>
+            labelMore={t("projects.show_more", "VER MÁS PROYECTOS")}
+            labelLess={t("projects.show_less", "VER MENOS")}
+          />
         </div>
       </div>
     </section>

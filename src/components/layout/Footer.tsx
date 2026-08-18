@@ -33,7 +33,7 @@ export const Footer = () => {
 
               {/* LA ESFERA DEL DRAGÓN */}
               <img
-                src="/logo.png"
+                src="/esferas/esfera1.png"
                 alt="Esfera del Dragón"
                 className="relative z-10 h-6 w-auto object-contain transition-transform duration-300"
               />

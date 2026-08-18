@@ -1,0 +1,376 @@
+.cassette {
+  position: relative;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 3px solid #0f172a;
+  background: #ffffff;
+  box-shadow:
+    inset 0 0 0 2px #cbd5e1,
+    5px 5px 0 rgba(15, 23, 42, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.3s ease;
+  image-rendering: pixelated;
+}
+
+.dark .cassette {
+  background: #0b1120;
+  border-color: #000000;
+  box-shadow:
+    inset 0 0 0 2px #1e293b,
+    5px 5px 0 rgba(0, 0, 0, 0.6);
+}
+
+.cassette:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    inset 0 0 0 2px #fcd34d,
+    5px 5px 0 rgba(15, 23, 42, 0.2);
+}
+
+.dark .cassette:hover {
+  box-shadow:
+    inset 0 0 0 2px #fcd34d,
+    5px 5px 0 rgba(0, 0, 0, 0.7);
+}
+
+.cassette-fade-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cassette-fade-out {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.cassette-screws {
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+}
+
+.cassette-screws span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #0f172a;
+  box-shadow: inset 1px 1px 0 #000, 1px 1px 0 #475569;
+}
+
+.dark .cassette-screws span {
+  background: #000000;
+  box-shadow: inset 1px 1px 0 #000, 1px 1px 0 #334155;
+}
+
+.cassette-screws span:nth-child(1) { top: 0; left: 0; }
+.cassette-screws span:nth-child(2) { top: 0; right: 0; }
+.cassette-screws span:nth-child(3) { bottom: 0; left: 0; }
+.cassette-screws span:nth-child(4) { bottom: 0; right: 0; }
+
+.cassette-label {
+  position: relative;
+  display: block;
+  border: 3px solid #0f172a;
+  background: #e2e8f0;
+  aspect-ratio: 16 / 7;
+  overflow: hidden;
+}
+
+.dark .cassette-label {
+  border-color: #000000;
+  background: #1e293b;
+}
+
+.cassette-label img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.cassette-label:hover img {
+  transform: scale(1.05);
+}
+
+.cassette-label-scan {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+.cassette-reels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 26px;
+}
+
+.reel {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #0f172a;
+  box-shadow:
+    0 0 0 3px #cbd5e1,
+    inset 0 0 0 4px #ffffff,
+    inset 0 0 0 6px #0f172a;
+}
+
+.dark .reel {
+  background: #000000;
+  box-shadow:
+    0 0 0 3px #334155,
+    inset 0 0 0 4px #0b1120,
+    inset 0 0 0 6px #000000;
+}
+
+.cassette-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cassette-level {
+  font-family: "Press Start 2P", monospace;
+  font-size: 9px;
+  color: #d97706;
+}
+
+.dark .cassette-level {
+  color: #fcd34d;
+}
+
+.cassette-category {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #d97706;
+}
+
+.dark .cassette-category {
+  color: #fcd34d;
+}
+
+.cassette-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.dark .cassette-title {
+  color: #ffffff;
+}
+
+.cassette-desc {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #475569;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dark .cassette-desc {
+  color: #94a3b8;
+}
+
+.cassette-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stack-chip {
+  font-size: 10px;
+  padding: 3px 7px;
+  border: 1px solid #cbd5e1;
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.dark .stack-chip {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  color: #cbd5e1;
+}
+
+.cassette-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 2px solid #e2e8f0;
+  margin-top: auto;
+}
+
+.dark .cassette-footer {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.cassette-icon-link {
+  color: #334155;
+  transition: color 0.2s ease;
+}
+
+.dark .cassette-icon-link {
+  color: #e2e8f0;
+}
+
+.cassette-icon-link:hover {
+  color: #d97706;
+}
+
+.dark .cassette-icon-link:hover {
+  color: #fcd34d;
+}
+
+.cassette-play {
+  flex-grow: 1;
+  text-align: center;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #0f172a;
+  background: #fcd34d;
+  border: 2px solid #0f172a;
+  padding: 8px 0;
+  box-shadow: 3px 3px 0 #0f172a;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.dark .cassette-play {
+  border-color: #000000;
+  box-shadow: 3px 3px 0 #000000;
+}
+
+.cassette-play:hover {
+  background: #fbbf24;
+}
+
+.cassette-play:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+.play-icon {
+  margin-right: 6px;
+}
+
+.section-title-arcade {
+  font-family: "Press Start 2P", monospace;
+  font-size: 22px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 640px) {
+  .section-title-arcade {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cassette,
+  .cassette-play,
+  .cassette-label img {
+    transition: none;
+  }
+}
+
+/* =========================================
+   1. ANIMACIÓN DE LOS CARRETES (REELS)
+   ========================================= */
+@keyframes spin-reel {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.reel {
+  /* Si tus carretes son de un color sólido, no se notará el giro. 
+     Agrega un borde punteado o un gradiente para que parezcan engranajes reales. */
+  border: 4px dashed #4b5563; /* Ajusta el color según tu diseño */
+  border-radius: 50%;
+  
+  /* Giro lento por defecto (como si estuviera en pausa o encendido) */
+  animation: spin-reel 6s linear infinite;
+}
+
+/* Cuando el usuario pasa el mouse sobre el cassette, los carretes giran más rápido (Simulando "PLAY") */
+.cassette:hover .reel {
+  animation: spin-reel 1.5s linear infinite;
+}
+
+/* Si quieres que giren en direcciones opuestas (como un cassette real) */
+.cassette-reels .reel:nth-child(1) {
+  animation-direction: normal;
+}
+.cassette-reels .reel:nth-child(2) {
+  animation-direction: normal; /* Cambia a "reverse" si prefieres que giren hacia adentro */
+}
+
+
+/* =========================================
+   2. ANIMACIÓN DEL CASSETTE (HOVER / BOTÓN)
+   ========================================= */
+.cassette {
+  /* Transición suave para cuando entra y sale el hover */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cassette:hover {
+  /* Se levanta ligeramente y se hace una fracción más grande */
+  transform: translateY(-8px) scale(1.02);
+  /* Sombra más pronunciada para dar efecto 3D */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 
+              0 10px 10px -5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* =========================================
+   3. EFECTO DE CINTA LEYÉNDOSE O LÁSER 
+   ========================================= */
+@keyframes scan-line {
+  0% { top: -10%; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { top: 110%; opacity: 0; }
+}
+
+.cassette-label-scan {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  /* Animación infinita del "láser" pasando por la imagen */
+  animation: scan-line 3s linear infinite;
+  pointer-events: none; /* Para que no interfiera con los clics */
+}
+
+/* Ocultamos el láser si no se está haciendo hover para que no sea molesto (Opcional) */
+.cassette .cassette-label-scan {
+  display: none;
+}
+.cassette:hover .cassette-label-scan {
+  display: block;
+}

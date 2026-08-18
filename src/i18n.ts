@@ -15,15 +15,18 @@ const resources = {
       hero: {
         name_last: "LIEVANO",
         role: "DESARROLLADOR WEB JUNIOR",
-        description:
-          "Especializado en transformar ideas complejas en productos digitales funcionales, optimizados para <bold>rendimiento, escalabilidad y diseño responsive</bold>.",
+        experience: "+1 AÑO DE EXP",
+        description_normal:
+          "Especializado en transformar ideas complejas en productos digitales funcionales, optimizados para ",
+        description_bold:
+          "rendimiento, escalabilidad y diseño responsive.",
         cta_projects: "Ver Proyectos",
         cta_cv: "Descargar CV",
       },
       projects: {
         section_title: "Proyectos",
         section_subtitle:
-          "Proyectos creados con enfoque funcional, visual y escalable.",
+          "Creados con enfoque funcional, visual y escalable.",
         code: "Código",
         demo: "Demo Live",
         show_more: "Ver más proyectos",
@@ -43,7 +46,6 @@ const resources = {
           title: "Plataforma ERP Empresarial",
           desc: "Solución ERP centralizada para la gestión de empresas, usuarios y beneficios para empleados. Incluye administración de roles, módulos de recursos humanos y panel de control administrativo.",
         },
-        // --- PROYECTOS NUEVOS (ES) ---
         alirio: {
           category: "Landing Page Corporativa",
           title: "Energías Renovables Polo a Tierra",
@@ -116,15 +118,18 @@ const resources = {
       hero: {
         name_last: "LIEVANO",
         role: "JUNIOR WEB DEVELOPER",
-        description:
-          "Specialized in transforming complex ideas into functional digital products, optimized for <bold>performance, scalability, and responsive design</bold>.",
+        experience: "+1 YEAR OF EXP",
+        description_normal:
+          "Specialized in transforming complex ideas into functional digital products, optimized for ",
+        description_bold:
+          "performance, scalability, and responsive design.",
         cta_projects: "View Projects",
         cta_cv: "Download CV",
       },
       projects: {
         section_title: "Projects",
         section_subtitle:
-          "Projects built with a functional, visual, and scalable approach.",
+          "Built with a functional, visual, and scalable approach.",
         code: "Code",
         demo: "Live Demo",
         show_more: "View more projects",
@@ -144,10 +149,9 @@ const resources = {
           title: "Enterprise ERP Platform",
           desc: "Centralized ERP solution for managing companies, users, and employee benefits. Includes role management, human resources modules, and an administrative control panel.",
         },
-        // --- PROYECTOS NUEVOS (EN) ---
         alirio: {
           category: "Corporate Landing Page",
-          title: "Energías Renovables Polo a Tierra", // Mantenemos el nombre de la empresa original
+          title: "Energías Renovables Polo a Tierra",
           desc: "Modern frontend for showcasing services and projects for the renewable energy company Energías Renovables Polo a Tierra.",
         },
         flights: {
