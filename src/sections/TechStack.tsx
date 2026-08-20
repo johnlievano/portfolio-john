@@ -105,14 +105,15 @@ const getStackData = (t: (key: string) => string): SkillCategory[] => [
 
 const SkillCard = ({ s }: { s: Skill }) => (
   <div
-  className="group relative flex flex-col items-center justify-center p-6 h-full w-full min-h-[160px] transition-all duration-200 
-             border-2 border-slate-900 bg-white shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] rounded-none
-             dark:bg-slate-900 dark:border-slate-700 dark:shadow-[4px_4px_0px_0px_rgba(30,41,59,1)]
-             hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] hover:border-amber-400
-             dark:hover:shadow-[8px_8px_0px_0px_rgba(253,211,77,1)] dark:hover:border-amber-300 z-10 hover:z-20"
->
+    className="group relative flex flex-col items-center justify-center p-6 h-full w-full min-h-[160px] transition-all duration-200 
+               border-2 border-slate-900 bg-white shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] rounded-none
+               dark:bg-slate-900 dark:border-slate-700 dark:shadow-[4px_4px_0px_0px_rgba(30,41,59,1)]
+               hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(251,191,36,1)] hover:border-amber-400
+               dark:hover:shadow-[8px_8px_0px_0px_rgba(253,211,77,1)] dark:hover:border-amber-300 
+               z-10 hover:z-40 [&:has(:hover)]:z-[60] [&:has(:active)]:z-[100]"
+  >
     {/* Contenedor relativo estricto para anclar el sticker antes de que se mueva */}
-    <div className="relative w-20 h-20 mb-4 flex items-center justify-center shrink-0">
+    <div className="relative z-50 w-20 h-20 mb-4 flex items-center justify-center shrink-0">
       <StickerPeel
         imageSrc={s.icon}
         width={64}
@@ -125,7 +126,7 @@ const SkillCard = ({ s }: { s: Skill }) => (
         className={s.darkInvert ? "dark:invert" : ""}
       />
     </div>
-    <span className="text-sm font-bold uppercase tracking-wider text-center text-slate-900 dark:text-white font-mono">
+    <span className="relative z-10 text-sm font-bold uppercase tracking-wider text-center text-slate-900 dark:text-white font-mono pointer-events-none">
       {s.name}
     </span>
   </div>

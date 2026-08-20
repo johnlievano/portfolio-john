@@ -30,7 +30,7 @@ export interface StickerPeelProps {
     | InitialPositionObj;
   peelDirection?: number;
   className?: string;
-  dragBounds?: string | HTMLElement; // NUEVO
+  dragBounds?: string | HTMLElement;
 }
 
 interface CustomCSSProperties extends CSSProperties {
@@ -45,6 +45,47 @@ interface CustomCSSProperties extends CSSProperties {
   "--sticker-lighting-constant"?: number;
   "--peel-direction"?: string;
 }
+
+let globalZCounter = 100000;
+
+type ElevatedElement = HTMLElement & {
+  __activeZIndices?: number[];
+  __originalPositionStatic?: boolean;
+};
+
+const elevateElement = (el: ElevatedElement, zValue: number) => {
+  if (!el.__activeZIndices) el.__activeZIndices = [];
+  el.__activeZIndices.push(zValue);
+
+  const maxZ = Math.max(...el.__activeZIndices);
+  el.style.setProperty("z-index", maxZ.toString(), "important");
+
+  if (el.__activeZIndices.length === 1) {
+    if (window.getComputedStyle(el).position === "static") {
+      el.__originalPositionStatic = true;
+      el.style.setProperty("position", "relative", "important");
+    } else {
+      el.__originalPositionStatic = false;
+    }
+  }
+};
+
+const demoteElement = (el: ElevatedElement, zValue: number) => {
+  if (!el.__activeZIndices) return;
+
+  const idx = el.__activeZIndices.indexOf(zValue);
+  if (idx !== -1) el.__activeZIndices.splice(idx, 1);
+
+  if (el.__activeZIndices.length === 0) {
+    el.style.removeProperty("z-index");
+    if (el.__originalPositionStatic) {
+      el.style.removeProperty("position");
+    }
+  } else {
+    const maxZ = Math.max(...el.__activeZIndices);
+    el.style.setProperty("z-index", maxZ.toString(), "important");
+  }
+};
 
 const StickerPeel: FC<StickerPeelProps> = ({
   imageSrc,
@@ -67,9 +108,12 @@ const StickerPeel: FC<StickerPeelProps> = ({
   const pointLightFlippedRef = useRef<SVGFEPointLightElement>(null);
   const draggableInstanceRef = useRef<Draggable | null>(null);
 
-  // Refs para la animación de retorno sin depender del namespace NodeJS
   const startPosRef = useRef({ x: 0, y: 0 });
   const returnTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  
+  const isElevatedRef = useRef(false);
+  const currentDragZRef = useRef<number>(0);
+  const elevatedParentsRef = useRef<HTMLElement[]>([]);
 
   const defaultPadding = 10;
 
@@ -97,14 +141,54 @@ const StickerPeel: FC<StickerPeelProps> = ({
     const target = dragTargetRef.current;
     if (!target) return;
 
+    const cleanupElevation = () => {
+      if (isElevatedRef.current) {
+        const z = currentDragZRef.current;
+        demoteElement(target as ElevatedElement, z);
+        elevatedParentsRef.current.forEach((el) => demoteElement(el as ElevatedElement, z));
+        elevatedParentsRef.current = [];
+        isElevatedRef.current = false;
+      }
+    };
+
     draggableInstanceRef.current = Draggable.create(target, {
       type: "x,y",
-      bounds: dragBounds, // Al poner 'body', puedes arrastrar el sticker por toda la ventana de tu portafolio
+      bounds: dragBounds, 
       inertia: true,
       onPress() {
         if (returnTimeoutRef.current) clearTimeout(returnTimeoutRef.current);
         target.style.cursor = "grabbing";
-        gsap.set(target, { zIndex: 9999 });
+        
+        cleanupElevation();
+
+        isElevatedRef.current = true;
+        currentDragZRef.current = ++globalZCounter;
+        const z = currentDragZRef.current;
+        
+        elevateElement(target as ElevatedElement, z);
+
+        // Determinamos cuál es el límite superior seguro (ej. <section id="stack">)
+        const boundaryNode =
+          typeof dragBounds === "string"
+            ? document.querySelector(dragBounds)
+            : dragBounds;
+        
+        const parents: HTMLElement[] = [];
+        let current = target.parentElement;
+        
+        // Subimos por el DOM, pero NOS DETENEMOS cuando llegamos al boundaryNode
+        // Esto protege tu Navbar y otras secciones globales de la página.
+        while (
+          current && 
+          current !== document.body && 
+          current !== document.documentElement &&
+          current !== boundaryNode // <-- AQUÍ ESTÁ LA SOLUCIÓN
+        ) {
+          elevateElement(current as ElevatedElement, z);
+          parents.push(current);
+          current = current.parentElement;
+        }
+        elevatedParentsRef.current = parents;
       },
       onDrag() {
         const rot = gsap.utils.clamp(-24, 24, this.deltaX * 0.4);
@@ -115,6 +199,7 @@ const StickerPeel: FC<StickerPeelProps> = ({
       },
       onDragEnd() {
         if (returnTimeoutRef.current) clearTimeout(returnTimeoutRef.current);
+        
         returnTimeoutRef.current = setTimeout(() => {
           gsap.to(target, {
             x: startPosRef.current.x,
@@ -122,9 +207,11 @@ const StickerPeel: FC<StickerPeelProps> = ({
             rotation: 0,
             duration: 0.8,
             ease: "elastic.out(1, 0.6)",
+            onComplete: () => {
+              cleanupElevation();
+            }
           });
-          gsap.set(target, { zIndex: 50 });
-        }, 4000);
+        }, 4000); 
       },
     })[0];
 
@@ -133,8 +220,9 @@ const StickerPeel: FC<StickerPeelProps> = ({
     return () => {
       if (draggableInstanceRef.current) draggableInstanceRef.current.kill();
       if (returnTimeoutRef.current) clearTimeout(returnTimeoutRef.current);
+      cleanupElevation();
     };
-  }, []);
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     const updateLight = (e: MouseEvent) => {

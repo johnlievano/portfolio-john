@@ -60,13 +60,16 @@ const TypewriterDescription = ({
 
 export const Home = () => {
   const { t } = useTranslation();
-  const [showText, setShowText] = useState(false);
+  // CAMBIO 1: El estado inicial de showText es true para mostrar el texto de inmediato
+  const [showText, setShowText] = useState(true);
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
 
   useEffect(() => {
     const checkDevice = window.innerWidth < 1024;
     setIsMobileOrTablet(checkDevice);
 
+    // CAMBIO 2: Se elimina la lógica condicional que ocultaba el texto en móvil
+    /*
     let timer: ReturnType<typeof setTimeout>;
 
     if (checkDevice) {
@@ -81,6 +84,7 @@ export const Home = () => {
       // Muestra texto inmediatamente
       setShowText(true);
     }
+    */
 
     const handleResize = () => {
       const isMobile = window.innerWidth < 1024;
@@ -90,7 +94,7 @@ export const Home = () => {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      if (timer) clearTimeout(timer);
+      // if (timer) clearTimeout(timer); // No más temporizador que limpiar
       window.removeEventListener("resize", handleResize);
     };
   }, []);
@@ -151,12 +155,12 @@ export const Home = () => {
         items-center
       "
       >
-        {/* COLUMNA 1: TEXTO (Aparece únicamente tras terminar la foto en móvil) */}
-        {showText ? (
+        {/* COLUMNA 1: TEXTO (Ahora aparece simultáneamente con la foto) */}
+        {showText && ( // Simplificado el condicional
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 2.5 }}
             className="text-center md:text-left order-2 md:order-1"
           >
             {/* NOMBRE */}
@@ -233,7 +237,7 @@ export const Home = () => {
                   hidden: { opacity: 0 },
                   visible: {
                     opacity: 1,
-                    transition: { staggerChildren: 0.2, delayChildren: 0.5 },
+                    transition: { staggerChildren: 0.4, delayChildren: 0.5 },
                   },
                 }}
                 className="flex flex-col items-center gap-4 md:flex-row md:justify-start"
@@ -310,8 +314,6 @@ export const Home = () => {
               </motion.div>
             </div>
           </motion.div>
-        ) : (
-          <div className="order-2 md:order-1 min-h-[300px]"></div>
         )}
 
         {/* COLUMNA 2: FOTO DE PERFIL */}
@@ -322,11 +324,10 @@ export const Home = () => {
           className="flex justify-center md:justify-end order-1 md:order-2 z-10"
         >
           {/*
-            En móvil (isMobileOrTablet = true) le enviamos textEndTime={0.2}
-            para que las esferas arranquen al instante mientras la foto entra.
-            En escritorio le enviamos 5 para esperar a la escritura de texto.
+            CAMBIO 3: Cambiado a un valor fijo de 0.2 para que el efecto de las esferas
+            arranque pronto y se sincronice con la animación de la foto y el texto.
           */}
-          <DragonBallsEffect textEndTime={isMobileOrTablet ? 0.2 : 5} />
+          <DragonBallsEffect textEndTime={0.2} />
         </motion.div>
       </div>
     </section>
