@@ -23,24 +23,31 @@ const TypewriterDescription = ({
   const [typedText, setTypedText] = useState("");
 
   useEffect(() => {
+    // 1. Reinicia el texto inmediatamente al cambiar el idioma
+    setTypedText("");
+
+    let timeoutId: ReturnType<typeof setTimeout>;
+    let intervalId: ReturnType<typeof setInterval>;
     let currentText = "";
     let index = 0;
 
-    const timeout = setTimeout(() => {
-      const interval = setInterval(() => {
+    timeoutId = setTimeout(() => {
+      intervalId = setInterval(() => {
         if (index < fullText.length) {
           currentText += fullText[index];
           setTypedText(currentText);
           index++;
         } else {
-          clearInterval(interval);
+          clearInterval(intervalId);
         }
       }, 25);
-
-      return () => clearInterval(interval);
     }, 500);
 
-    return () => clearTimeout(timeout);
+    // 2. Limpia de forma estricta TANTO el timeout COMO el interval activo
+    return () => {
+      clearTimeout(timeoutId);
+      if (intervalId) clearInterval(intervalId);
+    };
   }, [fullText]);
 
   return (
@@ -60,44 +67,9 @@ const TypewriterDescription = ({
 
 export const Home = () => {
   const { t } = useTranslation();
-  // CAMBIO 1: El estado inicial de showText es true para mostrar el texto de inmediato
-  const [showText, setShowText] = useState(true);
-  const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
-
-  useEffect(() => {
-    const checkDevice = window.innerWidth < 1024;
-    setIsMobileOrTablet(checkDevice);
-
-    // CAMBIO 2: Se elimina la lógica condicional que ocultaba el texto en móvil
-    /*
-    let timer: ReturnType<typeof setTimeout>;
-
-    if (checkDevice) {
-      // MÓVIL/TABLET:
-      // Se mantiene oculto el texto por 2.8s para darle paso exclusivo
-      // a la animación de la foto / esferas.
-      timer = setTimeout(() => {
-        setShowText(true);
-      }, 2800);
-    } else {
-      // ESCRITORIO:
-      // Muestra texto inmediatamente
-      setShowText(true);
-    }
-    */
-
-    const handleResize = () => {
-      const isMobile = window.innerWidth < 1024;
-      setIsMobileOrTablet(isMobile);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      // if (timer) clearTimeout(timer); // No más temporizador que limpiar
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  
+  // Mantenemos solo showText en true constante (sin estados ni useEffects innecesarios)
+  const showText = true;
 
   const cvFileUrl = "/CV John Esteban Lievano.pdf";
 
@@ -155,8 +127,8 @@ export const Home = () => {
         items-center
       "
       >
-        {/* COLUMNA 1: TEXTO (Ahora aparece simultáneamente con la foto) */}
-        {showText && ( // Simplificado el condicional
+        {/* COLUMNA 1: TEXTO */}
+        {showText && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -323,10 +295,6 @@ export const Home = () => {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex justify-center md:justify-end order-1 md:order-2 z-10"
         >
-          {/*
-            CAMBIO 3: Cambiado a un valor fijo de 0.2 para que el efecto de las esferas
-            arranque pronto y se sincronice con la animación de la foto y el texto.
-          */}
           <DragonBallsEffect textEndTime={0.2} />
         </motion.div>
       </div>
