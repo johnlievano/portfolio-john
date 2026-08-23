@@ -13,8 +13,8 @@ const BALL_COUNT = 7;
 const ORBIT_RADIUS = 90; // px
 
 const DragonBallsEffect = ({
-  imgLight = "/perfil_white.png",
-  imgDark = "/perfil_black.png",
+  imgLight = "/perfil_white.webp",
+  imgDark = "/perfil_black.webp",
   altLight = "John Esteban - Modo Claro",
   altDark = "John Esteban - Modo Oscuro",
   textEndTime = 5, 
@@ -35,7 +35,7 @@ const DragonBallsEffect = ({
   }
 
   const d = textEndTime; 
-  const animationDuration = 2; 
+  const animationDuration = 4; 
   const explosionTime = d + animationDuration; 
 
   return (
@@ -88,13 +88,13 @@ const DragonBallsEffect = ({
             >
               {/* 2. Aquí llamamos las 7 esferas dinámicamente usando el index */}
               <motion.img
-                src={`/esferas/esfera${index + 1}.png`}
+                src={`/esferas/esfera${index + 1}.webp`}
                 alt={`Esfera del dragón ${index + 1}`}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{
-                  duration: 0.4,
-                  delay: d + (index * 0.15),
+                  duration: 0.8,
+                  delay: d + (index * 0.3),
                   ease: "backOut",
                 }}
                 className="relative w-8 h-8 md:w-10 md:h-10 drop-shadow-[0_0_12px_rgba(245,158,11,0.8)]"

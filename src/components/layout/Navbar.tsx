@@ -15,12 +15,29 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = [
-    { name: t("nav.home"), href: "#inicio", icon: "/esferas/esfera1.png" },
-    { name: t("nav.projects"), href: "#proyectos", icon: "/esferas/esfera2.png" },
-    { name: t("nav.certificates"), href: "#certificados", icon: "/esferas/esfera3.png" },
-    // Forzamos un tamaño ligeramente mayor o un scale para compensar el padding interno del PNG de la 4ta esfera
-    { name: t("nav.skills"), href: "#stack", icon: "/esferas/esfera4.png", extraClass: "w-8 h-8 scale-124.5" },
+  const links: {
+    name: string;
+    href: string;
+    icon: string;
+    extraClass?: string;
+  }[] = [
+    { name: t("nav.home"), href: "#inicio", icon: "/esferas/esfera1.webp" },
+    {
+      name: t("nav.projects"),
+      href: "#proyectos",
+      icon: "/esferas/esfera2.webp",
+    },
+    {
+      name: t("nav.certificates"),
+      href: "#certificados",
+      icon: "/esferas/esfera3.webp",
+    },
+    {
+      name: t("nav.skills", "Habilidades"),
+      href: "#stack",
+      icon: "/logo/logo.webp",
+      extraClass: "w-8 h-8 scale-110",
+    },
   ];
 
   return (
@@ -54,7 +71,7 @@ export const Navbar = () => {
 
               {/* LA ESFERA DEL DRAGÓN */}
               <img
-                src="/esferas/esfera1.png"
+                src="/esferas/esfera1.webp"
                 alt="Esfera del Dragón"
                 className="relative z-10 h-6 w-auto object-contain transition-all duration-300"
               />
@@ -130,9 +147,9 @@ export const Navbar = () => {
             onClick={() => setIsOpen(false)}
             className="group flex items-center gap-4 text-lg font-medium transition-colors text-slate-700 dark:text-gray-300 hover:text-[#FCD34D]"
           >
-            <img 
-              src={link.icon} 
-              alt={`Icono de ${link.name}`} 
+            <img
+              src={link.icon}
+              alt={`Icono de ${link.name}`}
               className={`w-7 h-7 object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-md ${link.extraClass || ""}`}
             />
             {link.name}

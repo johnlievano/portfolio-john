@@ -265,7 +265,7 @@ export const Footer = () => {
                            bg-orange-500 dark:bg-[#FCD34D]"
               />
               <img
-                src="/esferas/esfera1.png"
+                src="/esferas/esfera1.webp"
                 alt="Esfera del Dragón"
                 className="relative z-10 w-auto h-6 transition-transform duration-300 object-contain"
               />
