@@ -2,22 +2,23 @@ import sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
 
-const folders = ['./public/projects'];
+const folders = ['./public/esferas'];
 
 folders.forEach(folder => {
   if (!fs.existsSync(folder)) return;
   fs.readdirSync(folder).forEach(file => {
+    if (!file.toLowerCase().endsWith('.png')) return; // solo procesa PNG
+
     const filePath = path.join(folder, file);
-    const tempPath = path.join(folder, `temp_${file}`);
-    
-    // Procesamos y sobrescribimos para forzar la compresión real WebP
+    const outputName = file.replace(/\.png$/i, '.webp');
+    const outputPath = path.join(folder, outputName);
+
     sharp(filePath)
       .webp({ quality: 80 })
-      .toFile(tempPath)
+      .toFile(outputPath)
       .then(() => {
         fs.unlinkSync(filePath);
-        fs.renameSync(tempPath, filePath);
-        console.log(`Optimizado a WebP real: ${file}`);
+        console.log(`Convertido a WebP: ${outputName}`);
       })
       .catch(err => console.error(err));
   });

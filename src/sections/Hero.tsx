@@ -41,7 +41,7 @@ const TypewriterDescription = ({
           clearInterval(intervalId);
         }
       }, 25);
-    }, 500);
+    }, 1800);
 
     // 2. Limpia de forma estricta TANTO el timeout COMO el interval activo
     return () => {
@@ -67,22 +67,23 @@ const TypewriterDescription = ({
 
 export const Home = () => {
   const { t } = useTranslation();
-  
   // Mantenemos solo showText en true constante (sin estados ni useEffects innecesarios)
   const showText = true;
 
-  const cvFileUrl = "/CV John Esteban Lievano.pdf";
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const cvFileUrl = "/CV-John-Lievano.pdf";
 
   const handleDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    window.open(cvFileUrl, "_blank");
-    const link = document.createElement("a");
-    link.href = cvFileUrl;
-    link.download = "CV John Esteban Lievano.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  e.preventDefault();
+  window.open(cvFileUrl, "_blank", "noopener,noreferrer");
+};
 
   const socialLinks = [
     {
@@ -113,7 +114,8 @@ export const Home = () => {
       className="relative flex items-center justify-center min-h-screen px-6 overflow-hidden bg-transparent pt-20 md:pt-0"
     >
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <ParticlesBackground />
+        {/* 2. CAMBIA ESTA LÍNEA */}
+        {!isMobile && <ParticlesBackground />}
       </div>
 
       <div

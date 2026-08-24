@@ -72,7 +72,8 @@ const DragonBallsEffect = ({
           ease: "easeInOut",
         }}
         className="absolute inset-0 z-20 pointer-events-none"
-        style={{ transformOrigin: "50% 50%" }}
+        // 1. Agregamos willChange al contenedor que rota
+        style={{ transformOrigin: "50% 50%", willChange: "transform, opacity" }} 
       >
         {balls.map((_, index) => {
           const angle = (index * 360) / BALL_COUNT;
@@ -86,7 +87,7 @@ const DragonBallsEffect = ({
                 transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-${ORBIT_RADIUS}px) rotate(-${angle}deg)`,
               }}
             >
-              {/* 2. Aquí llamamos las 7 esferas dinámicamente usando el index */}
+              {/* 2. Modificamos las esferas */}
               <motion.img
                 src={`/esferas/esfera${index + 1}.webp`}
                 alt={`Esfera del dragón ${index + 1}`}
@@ -97,7 +98,10 @@ const DragonBallsEffect = ({
                   delay: d + (index * 0.3),
                   ease: "backOut",
                 }}
-                className="relative w-8 h-8 md:w-10 md:h-10 drop-shadow-[0_0_12px_rgba(245,158,11,0.8)]"
+                // Agregamos willChange a la imagen
+                style={{ willChange: "transform, opacity" }}
+                // Modificamos el drop-shadow para que solo aplique de tablet (md:) para arriba
+                className="relative w-8 h-8 md:w-10 md:h-10 md:drop-shadow-[0_0_12px_rgba(245,158,11,0.8)]"
               />
             </div>
           );
@@ -109,13 +113,15 @@ const DragonBallsEffect = ({
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: [0, 3.5], opacity: [0.8, 0] }}
         transition={{ duration: 0.8, delay: explosionTime, ease: "easeOut" }}
-        className="absolute w-40 h-40 rounded-full border-2 border-amber-300/80 z-30 pointer-events-none shadow-[0_0_20px_rgba(245,158,11,0.5)]"
+        className="absolute w-40 h-40 rounded-full border-2 border-amber-300/80 z-30 pointer-events-none md:shadow-[0_0_20px_rgba(245,158,11,0.5)]"
+        style={{ willChange: "transform, opacity" }} // <-- AGREGAR ESTO
       />
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: [0, 2.5], opacity: [1, 0] }}
         transition={{ duration: 0.6, delay: explosionTime + 0.05, ease: "easeOut" }}
         className="absolute w-40 h-40 rounded-full border border-white/80 z-30 pointer-events-none"
+        style={{ willChange: "transform, opacity" }} // <-- AGREGAR ESTO
       />
 
       {/* DESTELLO BLANCO CENTRAL */}
@@ -124,6 +130,7 @@ const DragonBallsEffect = ({
         animate={{ scale: [0, 2.5, 0], opacity: [0, 1, 0] }}
         transition={{ duration: 0.5, delay: explosionTime }}
         className="absolute w-40 h-40 bg-white rounded-full blur-2xl z-30 pointer-events-none"
+        style={{ willChange: "transform, opacity" }} // <-- AGREGAR ESTO
       />
 
       {/* FOTO */}

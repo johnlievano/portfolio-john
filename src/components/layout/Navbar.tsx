@@ -35,8 +35,7 @@ export const Navbar = () => {
     {
       name: t("nav.skills", "Habilidades"),
       href: "#stack",
-      icon: "/logo/logo.webp",
-      extraClass: "w-8 h-8 scale-110",
+      icon: "/esferas/esfera4.webp",
     },
   ];
 
