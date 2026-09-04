@@ -66,7 +66,7 @@ const TypewriterDescription = ({
 };
 
 export const Home = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   // Mantenemos solo showText en true constante (sin estados ni useEffects innecesarios)
   const showText = true;
 
@@ -78,11 +78,15 @@ export const Home = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const cvFileUrl = "/CV-John-Lievano.pdf";
+  const currentLang = i18n.language || "es";
+
+  const cvFileUrl = currentLang.startsWith("en") 
+    ? "/CV John Esteban Liévano-en.pdf" 
+    : "/CV_John_Esteban_Lievano.pdf";
 
   const handleDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
-  e.preventDefault();
-  window.open(cvFileUrl, "_blank", "noopener,noreferrer");
+    e.preventDefault();
+    window.open(cvFileUrl, "_blank", "noopener,noreferrer");
 };
 
   const socialLinks = [
