@@ -71,14 +71,14 @@ export const Home = () => {
 
   const currentLang = i18n.language || "es";
 
-  const cvFileUrl = currentLang.startsWith("en") 
-    ? "/CV John Esteban Liévano-en.pdf" 
+  const cvFileUrl = currentLang.startsWith("en")
+    ? "/CV John Esteban Liévano-en.pdf"
     : "/CV_John_Esteban_Lievano.pdf";
 
   const handleDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     window.open(cvFileUrl, "_blank", "noopener,noreferrer");
-};
+  };
 
   const socialLinks = [
     {
@@ -128,8 +128,14 @@ export const Home = () => {
             className="text-center md:text-left order-2 md:order-1"
           >
             {/* NOMBRE */}
-            <h1 className="mb-6 font-black tracking-normal text-4xl sm:text-5xl md:text-6xl flex flex-col items-center md:items-start justify-start w-full">
-              <span className="w-fit h-[1.1em] text-slate-900 dark:text-white relative -ml-1.5 md:-ml-2">
+            <h1
+              aria-label="John Liévano - Desarrollador Web"
+              className="mb-6 font-black tracking-normal text-4xl sm:text-5xl md:text-6xl flex flex-col items-center md:items-start justify-start w-full"
+            >
+              <span className="sr-only">John Liévano | John Esteban Liévano Méndez</span>
+
+              {/* Renderizado visual animado (ignorado por robots para evitar duplicados) */}
+              <span aria-hidden="true" className="w-fit h-[1.1em] text-slate-900 dark:text-white relative -ml-1.5 md:-ml-2">
                 <StrokeText
                   text="JOHN ESTEBAN"
                   strokeColor="currentColor"
@@ -148,7 +154,7 @@ export const Home = () => {
                 />
               </span>
 
-              <span className="w-fit h-[1.1em] text-slate-500 dark:text-slate-400 relative -ml-1.5 md:-ml-2">
+              <span aria-hidden="true" className="w-fit h-[1.1em] text-slate-500 dark:text-slate-400 relative -ml-1.5 md:-ml-2">
                 <StrokeText
                   text={t("hero.name_last", "LIEVANO")}
                   strokeColor="currentColor"
