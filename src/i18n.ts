@@ -1,0 +1,226 @@
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+
+const resources = {
+  es: {
+    translation: {
+      nav: {
+        home: "Inicio",
+        projects: "Proyectos",
+        certificates: "Certificados",
+        skills: "Herramientas",
+        contact: "Contáctame",
+      },
+      hero: {
+        name_last: "LIEVANO",
+        role: "DESARROLLADOR WEB JUNIOR",
+        experience: "+1 AÑO DE EXP",
+        description_normal:
+          "Especializado en transformar ideas complejas en productos digitales funcionales, optimizados para ",
+        description_bold: "rendimiento, escalabilidad y diseño responsive.",
+        cta_projects: "Ver Proyectos",
+        cta_cv: "Descargar CV",
+      },
+      projects: {
+        section_title: "Proyectos",
+        section_subtitle: "Creados con enfoque funcional, visual y escalable.",
+        code: "Código",
+        demo: "Demo Live",
+        show_more: "Ver más proyectos",
+        show_less: "Ver menos",
+        aurea: {
+          category: "Plataforma Corporativa",
+          title: "Áurea Web",
+          desc: "Desarrollo integral del sitio web de la agencia. Enfoque en identidad de marca y velocidad de carga crítica.",
+        },
+        template: {
+          category: "Infraestructura E-commerce",
+          title: "Template AureaShop",
+          desc: "Plantilla base modular para tiendas online. Arquitectura diseñada para escalabilidad y fácil mantenimiento.",
+        },
+        erp: {
+          category: "Sistema de Gestión Empresarial",
+          title: "Plataforma ERP Empresarial",
+          desc: "Solución ERP centralizada para la gestión de empresas, usuarios y beneficios para empleados. Incluye administración de roles, módulos de recursos humanos y panel de control administrativo.",
+        },
+        alirio: {
+          category: "Landing Page Corporativa",
+          title: "Energías Renovables Polo a Tierra",
+          desc: "Frontend moderno para la presentación de servicios y proyectos de la empresa Energías Renovables Polo a Tierra.",
+        },
+        flights: {
+          category: "Plataforma Full-Stack",
+          title: "Aero Airlines",
+          desc: "Sistema de gestión de reservas aéreas con selección visual de asientos, estado de vuelos en tiempo real y autenticación segura.",
+        },
+        crud: {
+          category: "Arquitectura Desacoplada",
+          title: "Sistema de Seguimiento de Proyectos",
+          desc: "Sistema integral para gestión de proyectos usando Google Apps Script como API backend y Google Sheets como base de datos relacional con control de roles.",
+        },
+      },
+      stack: {
+        overline: "Arsenal Tecnológico",
+        title: "Herramientas & Frameworks",
+        categories: {
+          frontend: "Frontend",
+          backend: "Backend",
+          database: "Base de datos",
+          version_control: "Version Control",
+          database_cloud: "Base de Datos & Cloud",
+          tools: "Herramientas",
+        },
+      },
+      certifications: {
+        overline: "Certificaciones",
+        title: "Formación & Aprendizaje",
+        view_more: "Ver más",
+        view_less: "Ver menos",
+        items: {
+          html: "Fundamentos sólidos de estructura semántica y estándares web modernos.",
+          python:
+            "Introducción a la programación con Python y trabajo básico con datos.",
+          js: "Dominio del lenguaje, ES6+, asincronía y manipulación del DOM.",
+          cyber:
+            "Principios de seguridad informática y protección de activos digitales.",
+          scrum:
+            "Metodologías ágiles para gestión de proyectos y trabajo en equipo.",
+          english:
+            "Capacidad técnica para lectura de documentación y comunicación global.",
+        },
+      },
+      contact: {
+        title: "CONTACTO",
+        subtitle:
+          "¿Buscas sumar a alguien comprometido con el código limpio y el buen diseño a tu equipo? Conversemos.",
+        whatsapp_label: "WhatsApp",
+        email_label: "Correo",
+        send_msg: "Enviar mensaje",
+        connect: "Conectemos",
+        check_repo: "Ver perfil",
+      },
+      footer: {
+        rights: "Todos los derechos reservados.",
+        attribution: "Icono de Dragon Ball por ©Toei Animation",
+      },
+    },
+  },
+  en: {
+    translation: {
+      nav: {
+        home: "Home",
+        projects: "Projects",
+        certificates: "Certificates",
+        skills: "Skills",
+        contact: "Contact Me",
+      },
+      hero: {
+        name_last: "LIEVANO",
+        role: "JUNIOR WEB DEVELOPER",
+        experience: "+1 YEAR OF EXP",
+        description_normal:
+          "Specialized in transforming complex ideas into functional digital products, optimized for ",
+        description_bold: "performance, scalability, and responsive design.",
+        cta_projects: "View Projects",
+        cta_cv: "Download CV",
+      },
+      projects: {
+        section_title: "Projects",
+        section_subtitle:
+          "Built with a functional, visual, and scalable approach.",
+        code: "Code",
+        demo: "Live Demo",
+        show_more: "View more projects",
+        show_less: "View less",
+        aurea: {
+          category: "Corporate Platform",
+          title: "Áurea Web",
+          desc: "Comprehensive development of the agency website. Focus on brand identity and critical load speed.",
+        },
+        template: {
+          category: "E-commerce Infrastructure",
+          title: "AureaShop Template",
+          desc: "Modular base template for online stores. Architecture designed for scalability and easy maintenance.",
+        },
+        erp: {
+          category: "Enterprise Management System",
+          title: "Enterprise ERP Platform",
+          desc: "Centralized ERP solution for managing companies, users, and employee benefits. Includes role management, human resources modules, and an administrative control panel.",
+        },
+        alirio: {
+          category: "Corporate Landing Page",
+          title: "Energías Renovables Polo a Tierra",
+          desc: "Modern frontend for showcasing services and projects for the renewable energy company Energías Renovables Polo a Tierra.",
+        },
+        flights: {
+          category: "Full-Stack Platform",
+          title: "Aero Airlines",
+          desc: "Flight reservation management system featuring visual seat selection, real-time flight status, and secure authentication.",
+        },
+        crud: {
+          category: "Decoupled Architecture",
+          title: "Project Tracking System",
+          desc: "Comprehensive project management system utilizing Google Apps Script as a backend API and Google Sheets as a relational database with role-based access control.",
+        },
+      },
+      stack: {
+        overline: "Tech Arsenal",
+        title: "Tools & Frameworks",
+        categories: {
+          frontend: "Frontend",
+          backend: "Backend",
+          database: "Database",
+          version_control: "Version Control",
+          database_cloud: "Database & Cloud",
+          tools: "Tools",
+        },
+      },
+      certifications: {
+        overline: "Certifications",
+        title: "Education & Learning",
+        view_more: "View more",
+        view_less: "View less",
+        items: {
+          html: "Solid fundamentals of semantic structure and modern web standards.",
+          python:
+            "Introduction to programming with Python and basic data handling.",
+          js: "Language mastery, ES6+, asynchrony, and DOM manipulation.",
+          cyber:
+            "Principles of computer security and digital asset protection.",
+          scrum: "Agile methodologies for project management and teamwork.",
+          english:
+            "Technical ability for documentation reading and global communication.",
+        },
+      },
+      contact: {
+        title: "CONTACT",
+        subtitle:
+          "Are you looking to add someone committed to clean code and good design to your team? Let's talk.",
+        whatsapp_label: "WhatsApp",
+        email_label: "Email",
+        send_msg: "Send Message",
+        connect: "Let's Connect",
+        check_repo: "View Profile",
+      },
+      footer: {
+        rights: "All rights reserved.",
+        attribution: "Dragon Ball icon by ©Toei Animation",
+      },
+    },
+  },
+};
+
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources,
+    lng: "es",
+    fallbackLng: "es",
+    interpolation: {
+      escapeValue: false,
+    },
+  });
+
+export default i18n;
