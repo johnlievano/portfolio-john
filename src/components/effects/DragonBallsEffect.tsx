@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 interface DragonBallsEffectProps {
   imgLight?: string;
@@ -21,8 +22,21 @@ const DragonBallsEffect = ({
   altDark = "John Esteban - Modo Oscuro",
   textEndTime = 5, 
 }: DragonBallsEffectProps) => {
-  const balls = Array.from({ length: BALL_COUNT });
   const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const handleViewportChange = () => setIsMobile(mediaQuery.matches);
+
+    handleViewportChange();
+    mediaQuery.addEventListener("change", handleViewportChange);
+    return () => mediaQuery.removeEventListener("change", handleViewportChange);
+  }, []);
+
+  const balls = Array.from({ length: BALL_COUNT });
 
   if (prefersReducedMotion) {
     return (
@@ -76,7 +90,7 @@ const DragonBallsEffect = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.15 }}
         transition={{ duration: d, ease: "easeOut" }}
-        className="absolute inset-0 translate-x-4 translate-y-4 bg-gradient-to-tr from-amber-400 to-purple-500 rounded-3xl blur-2xl dark:opacity-20"
+        className="absolute inset-0 translate-x-4 translate-y-4 bg-gradient-to-tr from-amber-400 to-purple-500 rounded-3xl blur-lg md:blur-2xl dark:opacity-20"
       />
 
       {/* CAMPO DE ENERGÍA CENTRAL */}
@@ -84,7 +98,7 @@ const DragonBallsEffect = ({
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: [0, 0.8, 0], opacity: [0, 0.6, 0] }}
         transition={{ duration: animationDuration, delay: d, times: [0, 0.7, 1], ease: "easeInOut" }}
-        className="absolute w-32 h-32 md:w-48 md:h-48 bg-amber-400/50 rounded-full blur-2xl z-10 pointer-events-none"
+        className="absolute w-32 h-32 md:w-48 md:h-48 bg-amber-400/50 rounded-full blur-lg md:blur-2xl z-10 pointer-events-none"
       />
 
       {/* ANILLO DE ESFERAS */}
@@ -129,7 +143,7 @@ const DragonBallsEffect = ({
                   ease: "backOut",
                 }}
                 // Agregamos willChange a la imagen
-                style={{ willChange: "transform, opacity" }}
+                style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
                 // Modificamos el drop-shadow para que solo aplique de tablet (md:) para arriba
                 className="relative w-8 h-8 md:w-10 md:h-10 md:drop-shadow-[0_0_12px_rgba(245,158,11,0.8)]"
               />
@@ -159,7 +173,7 @@ const DragonBallsEffect = ({
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: [0, 2.5, 0], opacity: [0, 1, 0] }}
         transition={{ duration: 0.35, delay: explosionTime }}
-        className="absolute w-40 h-40 bg-white rounded-full blur-2xl z-30 pointer-events-none"
+        className="absolute w-40 h-40 bg-white rounded-full blur-lg md:blur-2xl z-30 pointer-events-none"
         style={{ willChange: "transform, opacity" }}
       />
 

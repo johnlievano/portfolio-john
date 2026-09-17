@@ -66,7 +66,7 @@ export const ParticlesBackground = () => {
           },
           move: {
             enable: true,
-            speed: 1, // Reduje un poco la velocidad para que sea más "fondo tranquilo"
+            speed: 1, // Fondo ligero en pantallas pequeñas
             outModes: "out",
           },
           opacity: { value: theme === "dark" ? 0.3 : 0.6 },

@@ -180,7 +180,7 @@ export const Home = () => {
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                className="font-mono text-base font-bold tracking-[0.2em] uppercase transition-colors text-amber-600 dark:text-[#FCD34D] md:text-lg flex items-center gap-3 flex-wrap justify-center md:justify-start"
+                className="font-mono text-sm md:text-base font-bold tracking-[0.16em] uppercase transition-colors text-amber-600 dark:text-[#FCD34D] flex items-center gap-2 flex-wrap justify-center md:justify-start"
               >
                 <span>{t("hero.role", "DESARROLLADOR WEB JUNIOR")}</span>
                 <span className="text-slate-400 dark:text-slate-500 font-normal">

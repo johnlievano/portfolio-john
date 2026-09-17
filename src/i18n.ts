@@ -14,7 +14,7 @@ const resources = {
       },
       hero: {
         name_last: "LIEVANO",
-        role: "DESARROLLADOR WEB JUNIOR",
+        role: "DESARROLLADOR FULLSTACK",
         experience: "+1 AÑO DE EXP",
         description_normal:
           "Especializado en transformar ideas complejas en productos digitales funcionales, optimizados para ",
@@ -117,7 +117,7 @@ const resources = {
       },
       hero: {
         name_last: "LIEVANO",
-        role: "JUNIOR WEB DEVELOPER",
+        role: "FULL-STACK DEVELOPER",
         experience: "+1 YEAR OF EXP",
         description_normal:
           "Specialized in transforming complex ideas into functional digital products, optimized for ",

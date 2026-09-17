@@ -20,16 +20,6 @@ function App() {
   const { i18n } = useTranslation();
   const [isVisible, setIsVisible] = useState(true); // Controla si se muestra el contenido
   const [nextLang, setNextLang] = useState<string | null>(null); // Guarda el idioma pendiente
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== "undefined" && window.innerWidth < 768
-  );
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   useEffect(() => {
     // Escuchar el evento que lanza el botón
     const handleLanguageChange = (e: any) => {
@@ -43,11 +33,9 @@ function App() {
 
   return (
     <main className="relative min-h-screen transition-colors duration-300 bg-slate-50 dark:bg-[#050505]">
-      {!isMobile && (
-        <Suspense fallback={null}>
-          <ParticlesBackground />
-        </Suspense>
-      )}
+      <Suspense fallback={null}>
+        <ParticlesBackground />
+      </Suspense>
       <Navbar />
 
       <div className="relative z-10">
