@@ -1,12 +1,7 @@
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './StrokeText.css';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 interface StrokeTextProps {
   text?: string;
@@ -170,8 +165,9 @@ const StrokeText = ({
     };
 
     let timeline: gsap.core.Timeline | null = null;
-    let scrollTrigger: ScrollTrigger | null = null;
+    let scrollTriggerInstance: import('gsap/ScrollTrigger').ScrollTrigger | null = null;
     let removeHover: (() => void) | null = null;
+    let cancelled = false;
 
     if (trigger === 'hover') {
       setEnd();
@@ -185,11 +181,15 @@ const StrokeText = ({
     } else {
       timeline = build();
       if (trigger === 'scroll') {
-        scrollTrigger = ScrollTrigger.create({
-          trigger: root,
-          start: 'top 82%',
-          once: true,
-          onEnter: () => timeline?.play(0)
+        import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+          if (cancelled) return;
+          gsap.registerPlugin(ScrollTrigger);
+          scrollTriggerInstance = ScrollTrigger.create({
+            trigger: root,
+            start: 'top 82%',
+            once: true,
+            onEnter: () => timeline?.play(0)
+          });
         });
       } else {
         timeline.play(0);
@@ -197,8 +197,9 @@ const StrokeText = ({
     }
 
     return () => {
+      cancelled = true;
       removeHover?.();
-      scrollTrigger?.kill();
+      scrollTriggerInstance?.kill();
       timeline?.kill();
       gsap.killTweensOf(targets);
     };

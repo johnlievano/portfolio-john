@@ -7,7 +7,6 @@ import {
   Envelope,
   WhatsappLogo,
 } from "@phosphor-icons/react";
-import { ParticlesBackground } from "../components/effects/ParticlesBackground";
 import StrokeText from "../components/effects/StrokeText";
 import { useTranslation } from "react-i18next";
 import DragonBallsEffect from "../components/effects/DragonBallsEffect";
@@ -70,14 +69,6 @@ export const Home = () => {
   // Mantenemos solo showText en true constante (sin estados ni useEffects innecesarios)
   const showText = true;
 
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   const currentLang = i18n.language || "es";
 
   const cvFileUrl = currentLang.startsWith("en") 
@@ -117,11 +108,6 @@ export const Home = () => {
       id="inicio"
       className="relative flex items-center justify-center min-h-screen px-6 overflow-hidden bg-transparent pt-20 md:pt-0"
     >
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* 2. CAMBIA ESTA LÍNEA */}
-        {!isMobile && <ParticlesBackground />}
-      </div>
-
       <div
         className="
         relative z-10

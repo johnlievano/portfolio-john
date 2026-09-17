@@ -40,6 +40,10 @@ const ImageCarousel = ({ images, title }: ImageCarouselProps) => {
         <img
           src={`/${images[currentIndex]}`}
           alt={`${title} - imagen ${currentIndex + 1}`}
+          loading="lazy"
+          decoding="async"
+          width={800}
+          height={600}
           className="w-full h-full object-contain p-2 animate-in fade-in duration-300"
         />
       </div>
@@ -122,42 +126,42 @@ export const Highlights = () => {
       title: "Fundamentals Python",
       year: "2025",
       desc: t("certifications.items.python"),
-      images: ["certificados/Python_Essentials_1_certificate_john_lievano.jpg", "certificados/Python_Essentials_2_certificate_john_lievano.jpg"],
+      images: ["certificados/Python_Essentials_1_certificate_john_lievano.webp", "certificados/Python_Essentials_2_certificate_john_lievano.webp"],
       iconType: "python",
     },
     {
       title: "JavaScript Essentials",
       year: "2025",
       desc: t("certifications.items.js"),
-      images: ["certificados/JavaScript_Essentials_certificate_john_lievano.jpg"],
+      images: ["certificados/JavaScript_Essentials_certificate_john_lievano.webp"],
       iconType: "js",
     },
     {
       title: "HTML Essentials",
       year: "2025",
       desc: t("certifications.items.html"),
-      images: ["certificados/HTML_Essentials_certificate_john_llievano.jpg"],
+      images: ["certificados/HTML_Essentials_certificate_john_llievano.webp"],
       iconType: "html",
     },
     {
       title: "Cybersecurity (CAPC)",
       year: "2024",
       desc: t("certifications.items.cyber"),
-      images: ["certificados/Cybersecurity_Awareness_john_lievano.jpg"],
+      images: ["certificados/Cybersecurity_Awareness_john_lievano.webp"],
       iconType: "cyber",
     },
     {
       title: "Scrum Foundation (SFPC)",
       year: "2024",
       desc: t("certifications.items.scrum"),
-      images: ["certificados/Certificate_Scrum_Foundation_john_lievano.jpg"],
+      images: ["certificados/Certificate_Scrum_Foundation_john_lievano.webp"],
       iconType: "scrum",
     },
     {
       title: "UOnline Inglés",
       year: "2022",
       desc: t("certifications.items.english"),
-      images: ["certificados/UOnline English Certificate.jpg"],
+      images: ["certificados/UOnline English Certificate.webp"],
       iconType: "english",
     },
   ];
@@ -223,6 +227,10 @@ export const Highlights = () => {
                   <img 
                     src={`/${cert.images[0]}`} 
                     alt={cert.title}
+                    loading="lazy"
+                    decoding="async"
+                    width={356}
+                    height={242}
                     className="w-full h-full object-cover opacity-90 group-hover:opacity-30 transition-opacity duration-300"
                   />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -242,9 +250,9 @@ export const Highlights = () => {
                       LVL {cert.year}
                     </span>
                   </div>
-                  <h4 className="text-xl font-bold mb-2 text-slate-800 dark:text-slate-100 group-hover:text-slate-600 dark:group-hover:text-white transition-colors">
+                  <h3 className="text-xl font-bold mb-2 text-slate-800 dark:text-slate-100 group-hover:text-slate-600 dark:group-hover:text-white transition-colors">
                     {cert.title}
-                  </h4>
+                  </h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
                     {cert.desc}
                   </p>

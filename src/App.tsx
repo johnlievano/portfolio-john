@@ -1,22 +1,34 @@
 import './i18n';
 import { useTranslation } from "react-i18next"; // 1. Hook para detectar el idioma
 import { motion, AnimatePresence } from "framer-motion"; // 2. Para las animaciones
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 
 import { Navbar } from "./components/layout/Navbar";
 import { Home } from "./sections/Hero";
-import { Projects } from "./sections/Projects";
-import { Highlights } from "./sections/Certificados";
-import { TechStack } from "./sections/TechStack";
-import { Contact } from "./sections/Contact";
-import { ParticlesBackground } from "./components/effects/ParticlesBackground";
 import { ScrollToTop } from "./components/layout/ScrollToTop";
-import { Footer } from "./components/layout/Footer";
+
+// Secciones/efectos debajo del pliegue: se cargan bajo demanda (code-splitting)
+// para reducir el JS que el navegador debe parsear/ejecutar en la carga inicial.
+const Highlights = lazy(() => import("./sections/Certificados").then(m => ({ default: m.Highlights })));
+const Projects = lazy(() => import("./sections/Projects").then(m => ({ default: m.Projects })));
+const TechStack = lazy(() => import("./sections/TechStack").then(m => ({ default: m.TechStack })));
+const Contact = lazy(() => import("./sections/Contact").then(m => ({ default: m.Contact })));
+const Footer = lazy(() => import("./components/layout/Footer").then(m => ({ default: m.Footer })));
+const ParticlesBackground = lazy(() => import("./components/effects/ParticlesBackground").then(m => ({ default: m.ParticlesBackground })));
 
 function App() {
   const { i18n } = useTranslation();
   const [isVisible, setIsVisible] = useState(true); // Controla si se muestra el contenido
   const [nextLang, setNextLang] = useState<string | null>(null); // Guarda el idioma pendiente
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768
+  );
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     // Escuchar el evento que lanza el botón
@@ -31,12 +43,16 @@ function App() {
 
   return (
     <main className="relative min-h-screen transition-colors duration-300 bg-slate-50 dark:bg-[#050505]">
-      <ParticlesBackground />
+      {!isMobile && (
+        <Suspense fallback={null}>
+          <ParticlesBackground />
+        </Suspense>
+      )}
       <Navbar />
 
       <div className="relative z-10">
-        <AnimatePresence 
-          mode="wait" 
+        <AnimatePresence
+          mode="wait"
           onExitComplete={() => {
             // ESTA ES LA CLAVE: Cambiamos el idioma solo cuando la animación de salida TERMINÓ
             if (nextLang) {
@@ -55,11 +71,13 @@ function App() {
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <Home />
-              <Projects />
-              <Highlights />
-              <TechStack />
-              <Contact />
-              <Footer />
+              <Suspense fallback={null}>
+                <Projects />
+                <Highlights />
+                <TechStack />
+                <Contact />
+                <Footer />
+              </Suspense>
             </motion.div>
           )}
         </AnimatePresence>

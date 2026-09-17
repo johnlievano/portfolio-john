@@ -21,32 +21,31 @@ export const Navbar = () => {
     icon: string;
     extraClass?: string;
   }[] = [
-    { name: t("nav.home"), href: "#inicio", icon: "/esferas/esfera1.webp" },
-    {
-      name: t("nav.projects"),
-      href: "#proyectos",
-      icon: "/esferas/esfera2.webp",
-    },
-    {
-      name: t("nav.certificates"),
-      href: "#certificados",
-      icon: "/esferas/esfera3.webp",
-    },
-    {
-      name: t("nav.skills", "Habilidades"),
-      href: "#stack",
-      icon: "/esferas/esfera4.webp",
-    },
-  ];
+      { name: t("nav.home"), href: "#inicio", icon: "/esferas/esfera1.webp" },
+      {
+        name: t("nav.projects"),
+        href: "#proyectos",
+        icon: "/esferas/esfera2.webp",
+      },
+      {
+        name: t("nav.certificates"),
+        href: "#certificados",
+        icon: "/esferas/esfera3.webp",
+      },
+      {
+        name: t("nav.skills", "Habilidades"),
+        href: "#stack",
+        icon: "/esferas/esfera4.webp",
+      },
+    ];
 
   return (
     <nav
       className={`navbar fixed top-0 w-full z-50 transition-all duration-300
-    ${
-      scrolled || isOpen
-        ? "backdrop-blur-md border-b bg-white/80 border-slate-200 dark:bg-[#050505]/80 dark:border-white/5"
-        : "bg-transparent border-transparent"
-    }`}
+    ${scrolled || isOpen
+          ? "backdrop-blur-md border-b bg-white/80 border-slate-200 dark:bg-[#050505]/80 dark:border-white/5"
+          : "bg-transparent border-transparent"
+        }`}
     >
       <div className="relative flex items-center justify-between px-6 py-4 mx-auto max-w-7xl">
         {/* IZQUIERDA: Logo con Onda de Ki */}
@@ -72,6 +71,8 @@ export const Navbar = () => {
               <img
                 src="/esferas/esfera1.webp"
                 alt="Esfera del Dragón"
+                width={24}
+                height={24}
                 className="relative z-10 h-6 w-auto object-contain transition-all duration-300"
               />
             </div>

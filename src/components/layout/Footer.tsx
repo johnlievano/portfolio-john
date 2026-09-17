@@ -42,7 +42,7 @@ const TetrisSimulation = () => {
     let gameState = "PLAYING"; // 'PLAYING', 'CLEARING', 'GAME_OVER'
     let linesToClear: number[] = [];
     let clearLinesTimer = 0;
-    
+
     // Variables para el efecto barrido (Game Over)
     let gameOverRow = 0;
     let gameOverTimer = 0;
@@ -54,10 +54,10 @@ const TetrisSimulation = () => {
       canvas.height = parent.clientHeight;
       cols = Math.ceil(canvas.width / CELL);
       rows = Math.ceil(canvas.height / CELL);
-      
+
       // EL TRUCO: Calculamos el sobrante para empujar todo hacia arriba
       offsetY = canvas.height - (rows * CELL);
-      
+
       board = Array.from({ length: rows }, () => Array(cols).fill(null));
     };
 
@@ -97,7 +97,7 @@ const TetrisSimulation = () => {
           linesToClear.push(y);
         }
       }
-      
+
       if (linesToClear.length > 0) {
         gameState = "CLEARING";
         clearLinesTimer = 0;
@@ -118,7 +118,7 @@ const TetrisSimulation = () => {
 
       if (collide(board, currentPiece)) {
         gameState = "GAME_OVER";
-        gameOverRow = rows - 1; 
+        gameOverRow = rows - 1;
         gameOverTimer = 0;
         currentPiece = null;
       }
@@ -130,7 +130,7 @@ const TetrisSimulation = () => {
 
       if (gameState === "GAME_OVER") {
         gameOverTimer += deltaTime;
-        if (gameOverTimer > 25) { 
+        if (gameOverTimer > 25) {
           if (gameOverRow >= 0) {
             for (let c = 0; c < cols; c++) {
               if (board[gameOverRow][c]) board[gameOverRow][c] = "#FCD34D";
@@ -138,7 +138,7 @@ const TetrisSimulation = () => {
             gameOverRow--;
             gameOverTimer = 0;
           } else {
-            if (gameOverTimer > 600) { 
+            if (gameOverTimer > 600) {
               board = Array.from({ length: rows }, () => Array(cols).fill(null));
               gameState = "PLAYING";
             }
@@ -147,7 +147,7 @@ const TetrisSimulation = () => {
       } else if (gameState === "CLEARING") {
         // TU VERSIÓN PREFERIDA: Espera 250ms en blanco y desaparece
         clearLinesTimer += deltaTime;
-        if (clearLinesTimer > 250) { 
+        if (clearLinesTimer > 250) {
           for (let y of linesToClear) {
             board.splice(y, 1);
             board.unshift(Array(cols).fill(null));
@@ -250,7 +250,7 @@ export const Footer = () => {
 
       {/* CONTENIDO DEL FOOTER (Aseguramos que esté por encima del fondo con z-10) */}
       <div className="relative z-10 flex flex-col items-center gap-4 px-6 mx-auto max-w-6xl">
-        
+
         {/* LOGO PERSONALIZADO */}
         <div className="flex-shrink-0 cursor-default">
           <div className="relative flex items-center text-xl font-black tracking-tighter uppercase transition-colors group">
@@ -267,6 +267,8 @@ export const Footer = () => {
               <img
                 src="/esferas/esfera1.webp"
                 alt="Esfera del Dragón"
+                width={24}
+                height={24}
                 className="relative z-10 w-auto h-6 transition-transform duration-300 object-contain"
               />
             </div>
@@ -287,7 +289,7 @@ export const Footer = () => {
             . {t("footer.rights")}
           </p>
 
-          <p className="text-[10px] text-slate-400 dark:text-gray-500 mt-2 opacity-70">
+          <p className="text-[10px] text-slate-500 dark:text-gray-500 mt-2 opacity-70">
             {t("footer.attribution")}
           </p>
         </div>

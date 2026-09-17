@@ -154,9 +154,9 @@ export const TechStack = () => {
         <div className="flex flex-col gap-12">
           {STACK_DATA.map((category) => (
             <div key={category.id}>
-              <h4 className="text-xs font-bold tracking-widest uppercase font-mono text-slate-400 dark:text-gray-500 mb-4">
+              <h3 className="text-xs font-bold tracking-widest uppercase font-mono text-slate-600 dark:text-gray-400 mb-4">
                 {category.title}
-              </h4>
+              </h3>
               <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                 {category.skills.map((s) => (
                   <SkillCard key={s.name} s={s} />

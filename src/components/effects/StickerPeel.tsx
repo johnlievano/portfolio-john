@@ -225,16 +225,20 @@ const StickerPeel: FC<StickerPeelProps> = ({
   }, []); // eslint-disable-line
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let cachedRect = container.getBoundingClientRect();
+    const refreshRect = () => { cachedRect = container.getBoundingClientRect(); };
+
     const updateLight = (e: MouseEvent) => {
-      const rect = containerRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const x = e.clientX - cachedRect.left;
+      const y = e.clientY - cachedRect.top;
       gsap.set(pointLightRef.current, { attr: { x, y } });
       const normalizedAngle = Math.abs(peelDirection % 360);
       if (normalizedAngle !== 180) {
         gsap.set(pointLightFlippedRef.current, {
-          attr: { x, y: rect.height - y },
+          attr: { x, y: cachedRect.height - y },
         });
       } else {
         gsap.set(pointLightFlippedRef.current, {
@@ -242,11 +246,18 @@ const StickerPeel: FC<StickerPeelProps> = ({
         });
       }
     };
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("mousemove", updateLight);
-      return () => container.removeEventListener("mousemove", updateLight);
-    }
+
+    container.addEventListener("mouseenter", refreshRect);
+    container.addEventListener("mousemove", updateLight);
+    window.addEventListener("scroll", refreshRect, { passive: true });
+    window.addEventListener("resize", refreshRect);
+
+    return () => {
+      container.removeEventListener("mouseenter", refreshRect);
+      container.removeEventListener("mousemove", updateLight);
+      window.removeEventListener("scroll", refreshRect);
+      window.removeEventListener("resize", refreshRect);
+    };
   }, [peelDirection]);
 
   useEffect(() => {
@@ -353,7 +364,7 @@ const StickerPeel: FC<StickerPeelProps> = ({
           <div className="sticker-lighting">
             <img
               src={imageSrc}
-              alt=""
+              alt="" loading="lazy" decoding="async" width={64} height={64}
               className="sticker-image"
               draggable="false"
               onContextMenu={(e) => e.preventDefault()}
@@ -364,7 +375,7 @@ const StickerPeel: FC<StickerPeelProps> = ({
           <div className="flap-lighting">
             <img
               src={imageSrc}
-              alt=""
+              alt="" loading="lazy" decoding="async" width={64} height={64}
               className="flap-image"
               draggable="false"
               onContextMenu={(e) => e.preventDefault()}

@@ -1,0 +1,10 @@
+# Portafolio de John Esteban Liévano
+
+Portafolio profesional de John Esteban Liévano Méndez, desarrollador web junior. Incluye proyectos, stack tecnológico, certificaciones y datos de contacto.
+
+## Secciones
+- [Inicio](https://tu-dominio.com/#inicio): presentación y resumen profesional.
+- [Proyectos](https://tu-dominio.com/#proyectos): proyectos destacados con capturas y enlaces.
+- [Certificaciones](https://tu-dominio.com/#certificados): certificados obtenidos (Python, JavaScript, HTML, Ciberseguridad, Scrum, Inglés).
+- [Stack](https://tu-dominio.com/#stack): tecnologías frontend, backend, bases de datos y herramientas.
+- [Contacto](https://tu-dominio.com/#contacto): formas de contacto (WhatsApp, correo, LinkedIn, GitHub).

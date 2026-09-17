@@ -13,6 +13,14 @@ export interface ProjectCassetteData {
   imageDark: string;
 }
 
+const responsiveSources: Record<string, string> = {
+  "/projects/energias_polo_a_tierra.webp": "/projects/energias_polo_a_tierra-504.webp 504w, /projects/energias_polo_a_tierra-700.webp 700w, /projects/energias_polo_a_tierra.webp 973w",
+  "/projects/ERP_Template.webp": "/projects/ERP_Template-504.webp 504w, /projects/ERP_Template-700.webp 700w, /projects/ERP_Template.webp 984w",
+  "/projects/aurea-template-black.webp": "/projects/aurea-template-black-504.webp 504w, /projects/aurea-template-black-700.webp 700w, /projects/aurea-template-black.webp 1016w",
+  "/projects/aurea-banner-black.webp": "/projects/aurea-banner-black-504.webp 504w, /projects/aurea-banner-black-700.webp 700w, /projects/aurea-banner-black.webp 952w",
+  "/projects/aurea-template-white.webp": "/projects/aurea-template-white-504.webp 504w, /projects/aurea-template-white-700.webp 700w, /projects/aurea-template-white.webp 1016w",
+};
+
 interface ProjectCassetteProps {
   project: ProjectCassetteData;
   index: number;
@@ -45,8 +53,24 @@ export const ProjectCassette = ({
         rel="noopener noreferrer"
         className="cassette-label"
       >
-        <img src={p.imageLight} alt={p.title} className="block dark:hidden" />
-        <img src={p.imageDark} alt={p.title} className="hidden dark:block" />
+        <img
+          src={p.imageLight}
+          srcSet={responsiveSources[p.imageLight]}
+          sizes="(min-width: 640px) 504px, calc(100vw - 3rem)"
+          alt={p.title}
+          loading="lazy"
+          decoding="async"
+          className="block dark:hidden"
+        />
+        <img
+          src={p.imageDark}
+          srcSet={responsiveSources[p.imageDark]}
+          sizes="(min-width: 640px) 504px, calc(100vw - 3rem)"
+          alt={p.title}
+          loading="lazy"
+          decoding="async"
+          className="hidden dark:block"
+        />
         <div className="cassette-label-scan" />
       </a>
 
