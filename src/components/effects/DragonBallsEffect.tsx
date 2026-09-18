@@ -1,5 +1,4 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useState } from "react";
 
 interface DragonBallsEffectProps {
   imgLight?: string;
@@ -23,19 +22,6 @@ const DragonBallsEffect = ({
   textEndTime = 5, 
 }: DragonBallsEffectProps) => {
   const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== "undefined" && window.innerWidth < 768
-  );
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 767px)");
-    const handleViewportChange = () => setIsMobile(mediaQuery.matches);
-
-    handleViewportChange();
-    mediaQuery.addEventListener("change", handleViewportChange);
-    return () => mediaQuery.removeEventListener("change", handleViewportChange);
-  }, []);
-
   const balls = Array.from({ length: BALL_COUNT });
 
   if (prefersReducedMotion) {
@@ -84,6 +70,22 @@ const DragonBallsEffect = ({
 
   return (
     <div className="relative w-64 h-64 md:w-[400px] md:h-[400px] flex items-center justify-center overflow-visible">
+      <style>{`
+        @keyframes dragon-ball-appear {
+          from {
+            opacity: 0;
+            transform: scale(0);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .dragon-ball-appearance {
+          animation: dragon-ball-appear 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+      `}</style>
 
       {/* GLOW DE FONDO */}
       <motion.div
@@ -131,22 +133,19 @@ const DragonBallsEffect = ({
                 transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-${ORBIT_RADIUS}px) rotate(-${angle}deg)`,
               }}
             >
-              {/* 2. Modificamos las esferas */}
-              <motion.img
-                src={`/esferas/esfera${index + 1}.webp`}
-                alt={`Esfera del dragón ${index + 1}`}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.35,
-                  delay: d + (index * 0.07),
-                  ease: "backOut",
-                }}
-                // Agregamos willChange a la imagen
-                style={{ willChange: isMobile ? "auto" : "transform, opacity" }}
-                // Modificamos el drop-shadow para que solo aplique de tablet (md:) para arriba
-                className="relative w-8 h-8 md:w-10 md:h-10 md:drop-shadow-[0_0_12px_rgba(245,158,11,0.8)]"
-              />
+              <div
+                className="dragon-ball-appearance"
+                style={{ animationDelay: `${d + (index * 0.07)}s` }}
+              >
+                <img
+                  src={`/esferas/esfera${index + 1}.webp`}
+                  alt={`Esfera del dragón ${index + 1}`}
+                  width={40}
+                  height={40}
+                  decoding="async"
+                  className="relative w-8 h-8 md:w-10 md:h-10 md:drop-shadow-[0_0_12px_rgba(245,158,11,0.8)]"
+                />
+              </div>
             </div>
           );
         })}
