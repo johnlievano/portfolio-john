@@ -216,8 +216,12 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: "es",
+    supportedLngs: ["es", "en"],
     fallbackLng: "es",
+    detection: {
+      order: ["localStorage", "navigator"],
+      caches: ["localStorage"],
+    },
     interpolation: {
       escapeValue: false,
     },

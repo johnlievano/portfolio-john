@@ -22,7 +22,6 @@ const TypewriterDescription = ({
   const [typedText, setTypedText] = useState("");
 
   useEffect(() => {
-    // 1. Reinicia el texto inmediatamente al cambiar el idioma
     setTypedText("");
 
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -42,7 +41,6 @@ const TypewriterDescription = ({
       }, 25);
     }, 1800);
 
-    // 2. Limpia de forma estricta TANTO el timeout COMO el interval activo
     return () => {
       clearTimeout(timeoutId);
       if (intervalId) clearInterval(intervalId);
@@ -66,13 +64,12 @@ const TypewriterDescription = ({
 
 export const Home = () => {
   const { t, i18n } = useTranslation();
-  // Mantenemos solo showText en true constante (sin estados ni useEffects innecesarios)
   const showText = true;
 
   const currentLang = i18n.language || "es";
 
   const cvFileUrl = currentLang.startsWith("en")
-    ? "/CV John Esteban Liévano-en.pdf"
+    ? "/CV_John_Esteban_Lievano-en.pdf"
     : "/CV_John_Esteban_Lievano.pdf";
 
   const handleDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -108,17 +105,8 @@ export const Home = () => {
       id="inicio"
       className="relative flex items-center justify-center min-h-screen px-6 overflow-hidden bg-transparent pt-20 md:pt-0"
     >
-      <div
-        className="
-        relative z-10
-        grid
-        max-w-6xl
-        w-full
-        gap-6
-        md:grid-cols-2
-        items-center
-      "
-      >
+      <div className="relative z-10 grid max-w-6xl w-full gap-6 md:grid-cols-2 items-center">
+
         {/* COLUMNA 1: TEXTO */}
         {showText && (
           <motion.div
@@ -134,7 +122,6 @@ export const Home = () => {
             >
               <span className="sr-only">John Liévano | John Esteban Liévano Méndez</span>
 
-              {/* Renderizado visual animado (ignorado por robots para evitar duplicados) */}
               <span aria-hidden="true" className="w-fit h-[1.1em] text-slate-900 dark:text-white relative -ml-1.5 md:-ml-2">
                 <StrokeText
                   text="JOHN ESTEBAN"
@@ -156,7 +143,7 @@ export const Home = () => {
 
               <span aria-hidden="true" className="w-fit h-[1.1em] text-slate-500 dark:text-slate-400 relative -ml-1.5 md:-ml-2">
                 <StrokeText
-                  text={t("hero.name_last", "LIEVANO")}
+                  text={t("hero.name_last", "LIÉVANO")}
                   strokeColor="currentColor"
                   fillColor="currentColor"
                   strokeWidth={1}
