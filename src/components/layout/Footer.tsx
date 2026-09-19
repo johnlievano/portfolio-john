@@ -59,6 +59,11 @@ const TetrisSimulation = () => {
       offsetY = canvas.height - (rows * CELL);
 
       board = Array.from({ length: rows }, () => Array(cols).fill(null));
+      currentPiece = null;
+      gameState = "PLAYING";
+      linesToClear = [];
+      gameOverRow = -1;
+      gameOverTimer = 0;
     };
 
     window.addEventListener("resize", resize);
@@ -131,7 +136,7 @@ const TetrisSimulation = () => {
       if (gameState === "GAME_OVER") {
         gameOverTimer += deltaTime;
         if (gameOverTimer > 25) {
-          if (gameOverRow >= 0) {
+          if (gameOverRow >= 0 && board[gameOverRow]) {
             for (let c = 0; c < cols; c++) {
               if (board[gameOverRow][c]) board[gameOverRow][c] = "#FCD34D";
             }
