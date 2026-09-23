@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo } from "react";
+import { useRef, useEffect, useMemo, useState } from "react";
 import type { CSSProperties, FC } from "react";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
@@ -110,6 +110,7 @@ const StickerPeel: FC<StickerPeelProps> = ({
 
   const startPosRef = useRef({ x: 0, y: 0 });
   const returnTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isInteractive, setIsInteractive] = useState(false);
   
   const isElevatedRef = useRef(false);
   const currentDragZRef = useRef<number>(0);
@@ -118,6 +119,17 @@ const StickerPeel: FC<StickerPeelProps> = ({
   const defaultPadding = 10;
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const updateInteractionMode = () => setIsInteractive(mediaQuery.matches);
+
+    updateInteractionMode();
+    mediaQuery.addEventListener("change", updateInteractionMode);
+    return () => mediaQuery.removeEventListener("change", updateInteractionMode);
+  }, []);
+
+  useEffect(() => {
+    if (!isInteractive) return;
+
     const target = dragTargetRef.current;
     if (!target) return;
 
@@ -135,9 +147,11 @@ const StickerPeel: FC<StickerPeelProps> = ({
 
     startPosRef.current = { x: startX, y: startY };
     gsap.set(target, { x: startX, y: startY });
-  }, [initialPosition]);
+  }, [initialPosition, isInteractive]);
 
   useEffect(() => {
+    if (!isInteractive) return;
+
     const target = dragTargetRef.current;
     if (!target) return;
 
@@ -222,9 +236,11 @@ const StickerPeel: FC<StickerPeelProps> = ({
       if (returnTimeoutRef.current) clearTimeout(returnTimeoutRef.current);
       cleanupElevation();
     };
-  }, []); // eslint-disable-line
+  }, [dragBounds, isInteractive]);
 
   useEffect(() => {
+    if (!isInteractive) return;
+
     const container = containerRef.current;
     if (!container) return;
 
@@ -258,9 +274,11 @@ const StickerPeel: FC<StickerPeelProps> = ({
       window.removeEventListener("scroll", refreshRect);
       window.removeEventListener("resize", refreshRect);
     };
-  }, [peelDirection]);
+  }, [isInteractive, peelDirection]);
 
   useEffect(() => {
+    if (!isInteractive) return;
+
     const container = containerRef.current;
     if (!container) return;
     const handleTouchStart = () => container.classList.add("touch-active");
@@ -273,7 +291,7 @@ const StickerPeel: FC<StickerPeelProps> = ({
       container.removeEventListener("touchend", handleTouchEnd);
       container.removeEventListener("touchcancel", handleTouchEnd);
     };
-  }, []);
+  }, [isInteractive]);
 
   const cssVars = useMemo<CustomCSSProperties>(
     () => ({
@@ -300,6 +318,23 @@ const StickerPeel: FC<StickerPeelProps> = ({
       peelDirection,
     ],
   );
+
+  if (!isInteractive) {
+    return (
+      <div className={`flex h-full w-full items-center justify-center ${className}`}>
+        <img
+          src={imageSrc}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          width={64}
+          height={64}
+          className="h-16 w-16 object-contain"
+          draggable="false"
+        />
+      </div>
+    );
+  }
 
   return (
     <div

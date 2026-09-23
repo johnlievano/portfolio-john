@@ -20,6 +20,17 @@ function App() {
   const { i18n } = useTranslation();
   const [isVisible, setIsVisible] = useState(true); // Controla si se muestra el contenido
   const [nextLang, setNextLang] = useState<string | null>(null); // Guarda el idioma pendiente
+  const [showParticles, setShowParticles] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const updateParticleVisibility = () => setShowParticles(mediaQuery.matches);
+
+    updateParticleVisibility();
+    mediaQuery.addEventListener("change", updateParticleVisibility);
+    return () => mediaQuery.removeEventListener("change", updateParticleVisibility);
+  }, []);
+
   useEffect(() => {
     // Escuchar el evento que lanza el botón
     const handleLanguageChange = (e: any) => {
@@ -33,8 +44,9 @@ function App() {
 
   return (
     <main className="relative min-h-screen transition-colors duration-300 bg-slate-50 dark:bg-[#050505]">
+      <div className="mobile-particle-field" aria-hidden="true" />
       <Suspense fallback={null}>
-        <ParticlesBackground />
+        {showParticles && <ParticlesBackground />}
       </Suspense>
       <Navbar />
 

@@ -16,6 +16,7 @@ interface ImageCarouselProps {
 
 const ImageCarousel = ({ images, title }: ImageCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const prevSlide = () => {
     setCurrentIndex(currentIndex === 0 ? images.length - 1 : currentIndex - 1);
@@ -29,46 +30,94 @@ const ImageCarousel = ({ images, title }: ImageCarouselProps) => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") prevSlide();
       if (e.key === "ArrowRight") nextSlide();
+      if (e.key === "Escape") setIsExpanded(false);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [nextSlide]);
 
   return (
-    <div className="relative w-full h-64 md:h-80 bg-slate-100 dark:bg-black/40 rounded-2xl overflow-hidden group/slider border border-slate-200 dark:border-slate-800">
-      <div className="w-full h-full flex items-center justify-center transition-opacity duration-500">
-        <img
-          src={`/${images[currentIndex]}`}
-          alt={`${title} - imagen ${currentIndex + 1}`}
-          loading="lazy"
-          decoding="async"
-          width={800}
-          height={600}
-          className="w-full h-full object-contain p-2 animate-in fade-in duration-300"
-        />
-      </div>
+    <div className="relative w-full p-3 rounded-3xl bg-slate-200 dark:bg-black/60 border-4 border-slate-900 dark:border-slate-700 shadow-inner">
+      <div className="relative w-full h-[min(42vh,20rem)] min-h-40 bg-white dark:bg-slate-950 rounded-xl overflow-hidden group/slider">
+        <div className="w-full h-full flex items-center justify-center transition-opacity duration-500">
+          <img
+            src={`/${images[currentIndex]}`}
+            alt={`${title} - imagen ${currentIndex + 1}`}
+            loading="lazy"
+            decoding="async"
+            width={800}
+            height={600}
+            className="w-full h-full object-contain p-2 animate-in fade-in duration-300"
+          />
+        </div>
 
-      {images.length > 1 && (
-        <>
-          <button
-            onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-            className="absolute top-1/2 left-2 -translate-y-1/2 p-2 rounded-full bg-slate-800/50 hover:bg-slate-800/80 text-white backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); setIsExpanded(true); }}
+          aria-label={`Ampliar ${title}`}
+          title="Ampliar imagen"
+          className="absolute top-3 right-3 z-20 rounded-lg bg-slate-900/80 p-2 text-white opacity-100 shadow-md transition-colors hover:bg-slate-900 dark:bg-slate-700/90 dark:hover:bg-slate-600"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M15 3h6v6" />
+            <path d="M9 21H3v-6" />
+            <path d="m21 3-7 7" />
+            <path d="m3 21 7-7" />
+          </svg>
+        </button>
+
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={(e) => { e.stopPropagation(); prevSlide(); }}
+              className="absolute top-1/2 left-2 -translate-y-1/2 p-2 rounded-full bg-slate-800/50 hover:bg-slate-800/80 text-white backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); nextSlide(); }}
+              className="absolute top-1/2 right-2 -translate-y-1/2 p-2 rounded-full bg-slate-800/50 hover:bg-slate-800/80 text-white backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+            </button>
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+              {images.map((_, idx) => (
+                <div key={idx} className={`transition-all duration-300 rounded-full ${idx === currentIndex ? "bg-slate-600 dark:bg-slate-400 w-6 h-2" : "bg-slate-400/50 dark:bg-slate-600/50 w-2 h-2"}`} />
+              ))}
+            </div>
+          </>
+        )}
+
+        {isExpanded && (
+          <div
+            className="fixed inset-0 z-[1000000] flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-sm"
+            onClick={() => setIsExpanded(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${title} ampliado`}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
-          </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-            className="absolute top-1/2 right-2 -translate-y-1/2 p-2 rounded-full bg-slate-800/50 hover:bg-slate-800/80 text-white backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-          </button>
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
-            {images.map((_, idx) => (
-              <div key={idx} className={`transition-all duration-300 rounded-full ${idx === currentIndex ? "bg-slate-600 dark:bg-slate-400 w-6 h-2" : "bg-slate-400/50 dark:bg-slate-600/50 w-2 h-2"}`} />
-            ))}
+            <img
+              src={`/${images[currentIndex]}`}
+              alt={`${title} - imagen ampliada`}
+              decoding="async"
+              className="max-h-[92vh] max-w-[96vw] object-contain rounded-lg border-2 border-white bg-white shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              type="button"
+              onClick={() => setIsExpanded(false)}
+              aria-label="Cerrar imagen ampliada"
+              title="Cerrar imagen ampliada"
+              className="absolute right-4 top-4 rounded-full bg-white p-2 text-slate-900 shadow-lg transition-colors hover:bg-slate-200"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
           </div>
-        </>
-      )}
+        )}
+      </div>
     </div>
   );
 };
@@ -97,19 +146,21 @@ export const Highlights = () => {
   const [showAll, setShowAll] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
+
   useEffect(() => {
-  if (selectedCert) {
-    document.body.style.overflow = 'hidden';
-    document.body.classList.add('modal-open');
-  } else {
-    document.body.style.overflow = 'unset';
-    document.body.classList.remove('modal-open');
-  }
-  return () => {
-    document.body.style.overflow = 'unset';
-    document.body.classList.remove('modal-open');
-  };
-}, [selectedCert]);
+    const previousOverflow = document.body.style.overflow;
+
+    if (selectedCert) {
+      document.body.style.overflow = "hidden";
+      document.body.classList.add("modal-open");
+    }
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.body.classList.remove("modal-open");
+    };
+  }, [selectedCert]);
+
   const { t } = useTranslation();
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -223,22 +274,25 @@ export const Highlights = () => {
                            bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 hover:-translate-y-1
                            dark:bg-[#131B2F] dark:border-slate-800 dark:hover:border-slate-600"
               >
-                <div className="relative w-full sm:w-1/3 aspect-[4/3] rounded-2xl overflow-hidden bg-slate-200 dark:bg-black/40 flex-shrink-0">
-                  <img 
-                    src={`/${cert.images[0]}`} 
-                    alt={cert.title}
-                    loading="lazy"
-                    decoding="async"
-                    width={356}
-                    height={242}
-                    className="w-full h-full object-cover opacity-90 group-hover:opacity-30 transition-opacity duration-300"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="group-hover:animate-walk text-slate-700 dark:text-slate-300">
-                      {getCertIcon(cert.iconType)}
-                      <div className="flex justify-center gap-2 mt-1">
-                        <div className="w-1.5 h-1.5 bg-slate-700 dark:bg-slate-300 rounded-full" />
-                        <div className="w-1.5 h-1.5 bg-slate-700 dark:bg-slate-300 rounded-full" />
+                {/* MINIATURA con marco exterior */}
+                <div className="relative w-full sm:w-1/3 aspect-[4/3] p-1.5 rounded-2xl bg-slate-300 dark:bg-black/60 border-2 border-slate-900 dark:border-slate-700 flex-shrink-0">
+                  <div className="relative w-full h-full rounded-lg overflow-hidden bg-slate-200 dark:bg-black/40">
+                    <img 
+                      src={`/${cert.images[0]}`} 
+                      alt={cert.title}
+                      loading="lazy"
+                      decoding="async"
+                      width={356}
+                      height={242}
+                      className="w-full h-full object-cover opacity-90 group-hover:opacity-30 transition-opacity duration-300"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="group-hover:animate-walk text-slate-700 dark:text-slate-300">
+                        {getCertIcon(cert.iconType)}
+                        <div className="flex justify-center gap-2 mt-1">
+                          <div className="w-1.5 h-1.5 bg-slate-700 dark:bg-slate-300 rounded-full" />
+                          <div className="w-1.5 h-1.5 bg-slate-700 dark:bg-slate-300 rounded-full" />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -282,7 +336,7 @@ export const Highlights = () => {
             onClick={() => setSelectedCert(null)}
           >
             <div 
-              className="relative w-full max-w-2xl shadow-2xl rounded-2xl animate-in zoom-in-95 duration-200 bg-white dark:bg-[#0B1120] border border-slate-200 dark:border-slate-800 flex flex-col" 
+              className="relative flex w-full max-w-2xl max-h-[calc(100dvh-1rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl animate-in zoom-in-95 duration-200 dark:border-slate-800 dark:bg-[#0B1120]" 
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-800/50 sticky top-0 bg-white/90 dark:bg-[#0B1120]/90 backdrop-blur-md z-10">
@@ -297,11 +351,11 @@ export const Highlights = () => {
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 18 12" /></svg>
                 </button>
               </div>
-              <div className="p-6 flex-grow flex flex-col">
+              <div className="flex min-h-0 flex-grow flex-col overflow-hidden p-3 sm:p-6">
                 <ImageCarousel images={selectedCert.images} title={selectedCert.title} />
-                <div className="mt-8 flex-grow">
+                <div className="mt-3 flex-grow overflow-hidden sm:mt-8">
                   <h4 className="text-lg font-bold text-slate-800 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-800 pb-2">Información del Sistema</h4>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{selectedCert.desc}</p>
+                  <p className="line-clamp-2 text-slate-600 dark:text-slate-400 leading-relaxed">{selectedCert.desc}</p>
                 </div>
               </div>
             </div>

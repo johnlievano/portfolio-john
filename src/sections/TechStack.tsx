@@ -117,7 +117,7 @@ const SkillCard = ({ s }: { s: Skill }) => (
       <StickerPeel
         imageSrc={s.icon}
         width={64}
-        rotate={Math.floor(Math.random() * 30) - 15}
+        rotate={(s.name.length % 31) - 15}
         peelBackHoverPct={35}
         peelBackActivePct={50}
         shadowIntensity={0.8}

@@ -30,7 +30,7 @@ const TetrisSimulation = () => {
       [[0, 1, 1], [1, 1, 0]], // S
     ];
 
-    const COLORS = ["#F97316", "#F59E0B", "#FCD34D", "#FFFFFF", "#94A3B8"];
+    const COLORS = ["#F97316", "#F59E0B", "#FCD34D", "#94A3B8", "#334155"];
 
     let currentPiece: any = null;
     let dropCounter = 0;
@@ -42,6 +42,9 @@ const TetrisSimulation = () => {
     let gameState = "PLAYING"; // 'PLAYING', 'CLEARING', 'GAME_OVER'
     let linesToClear: number[] = [];
     let clearLinesTimer = 0;
+
+    // Meta de llenado antes de forzar el "Game Over" y reiniciar
+    const FINAL_FILL_RATIO = 0.95;
 
     // Variables para el efecto barrido (Game Over)
     let gameOverRow = 0;
@@ -94,6 +97,16 @@ const TetrisSimulation = () => {
       }
     };
 
+    const getFillRatio = () => {
+      let filledCells = 0;
+      for (const row of board) {
+        for (const cell of row) {
+          if (cell !== null) filledCells++;
+        }
+      }
+      return filledCells / (rows * cols);
+    };
+
     // Función que detecta líneas y activa la animación (TU VERSIÓN PREFERIDA)
     const checkLines = () => {
       linesToClear = [];
@@ -103,7 +116,8 @@ const TetrisSimulation = () => {
         }
       }
 
-      if (linesToClear.length > 0) {
+      // Mientras no hayamos llegado a la meta de llenado, seguimos limpiando líneas normalmente
+      if (linesToClear.length > 0 && getFillRatio() < FINAL_FILL_RATIO) {
         gameState = "CLEARING";
         clearLinesTimer = 0;
         // Ponemos las líneas completadas en blanco puro de inmediato
@@ -115,10 +129,32 @@ const TetrisSimulation = () => {
       }
     };
 
+    // Altura acumulada de una columna, para repartir piezas de forma organizada
+    const getColumnHeight = (col: number) => {
+      for (let y = 0; y < rows; y++) {
+        if (board[y][col] !== null) return rows - y;
+      }
+      return 0;
+    };
+
     const spawnPiece = () => {
       const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
       const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-      const x = Math.floor(Math.random() * (cols - shape[0].length));
+      const shapeWidth = shape[0].length;
+      const maxX = cols - shapeWidth;
+
+      // Generamos varias columnas candidatas al azar y elegimos una de las más bajas,
+      // así el relleno se ve organizado en vez de completamente aleatorio
+      const candidates = Array.from({ length: Math.min(5, maxX + 1) }, () =>
+        Math.floor(Math.random() * (maxX + 1))
+      );
+      candidates.sort((a, b) => {
+        const ha = Math.max(...Array.from({ length: shapeWidth }, (_, i) => getColumnHeight(a + i)));
+        const hb = Math.max(...Array.from({ length: shapeWidth }, (_, i) => getColumnHeight(b + i)));
+        return ha - hb;
+      });
+      const x = candidates[0];
+
       currentPiece = { shape, color, x, y: 0 };
 
       if (collide(board, currentPiece)) {
@@ -172,6 +208,13 @@ const TetrisSimulation = () => {
               merge(board, currentPiece);
               checkLines();
               currentPiece = null;
+
+              // Si ya llegamos a la meta de llenado, forzamos el barrido de Game Over
+              if (gameState === "PLAYING" && getFillRatio() >= FINAL_FILL_RATIO) {
+                gameState = "GAME_OVER";
+                gameOverRow = rows - 1;
+                gameOverTimer = 0;
+              }
             }
           }
           dropCounter = 0;
