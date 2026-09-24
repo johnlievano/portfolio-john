@@ -69,7 +69,7 @@ export const Home = () => {
   const currentLang = i18n.language || "es";
 
   const cvFileUrl = currentLang.startsWith("en")
-    ? "/CV_John_Esteban_Lievano-en.pdf"
+    ? "/CV%20John%20Esteban%20Li%C3%A9vano-en.pdf"
     : "/CV_John_Esteban_Lievano.pdf";
 
   const handleDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
