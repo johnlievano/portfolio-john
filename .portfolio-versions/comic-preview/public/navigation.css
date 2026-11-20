@@ -1,0 +1,35 @@
+/* A compact navigation dock, independent of the illustrated hero. */
+header.site-header,header.site-header.is-scrolled{display:block;position:sticky;top:0;z-index:100;padding:12px 4%;border:0;background:#0d1425;backdrop-filter:none;box-shadow:none;transition:none}
+.site-header .nav-shell{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;max-width:1220px;min-height:64px;margin:auto;padding:8px 20px;border:1px solid #ffffff24;border-radius:18px;background:linear-gradient(120deg,#202a3d,#131b2c);box-shadow:0 8px 24px #0002;transition:border-color .25s,box-shadow .25s}
+.site-header.is-scrolled .nav-shell{border-color:#ffffff38;box-shadow:0 8px 28px #0005}
+header.site-header .brand{justify-self:start;font-size:30px;letter-spacing:-.025em;text-decoration:none;white-space:nowrap;color:#fff3dd;transition:color .2s,transform .2s}
+.site-header .brand:hover{color:#ffda43;transform:rotate(-2deg)}
+header.site-header nav{display:flex;position:static;width:auto;order:initial;gap:5px;margin:0;padding:4px;border:1px solid #ffffff0b;border-radius:12px;background:#080e1c55;box-shadow:none}
+header.site-header nav a{display:flex;align-items:center;justify-content:center;min-height:40px;padding:0 15px;border-radius:8px;font:700 12px/1.2 Arial,sans-serif;text-decoration:none;color:#cbd1dc;transition:background .2s,color .2s,transform .2s}
+header.site-header nav a::after{display:none}
+header.site-header nav a:hover{background:#ffffff0e;color:#fff3dd;transform:translateY(-2px)}
+header.site-header nav a[aria-current]{background:#fff3dd;color:#111827}
+header.site-header nav a[href="#contacto"]{background:#ffda43;color:#111827}
+header.site-header nav a[href="#contacto"]:hover{background:#ffe779}
+header.site-header #language{justify-self:end;display:grid;place-items:center;min-width:44px;width:44px;min-height:44px;padding:0;border:1px solid #ffffff38;border-radius:12px;background:transparent;color:#fff3dd;font:700 12px Arial,sans-serif;box-shadow:none;transition:background .2s}
+header.site-header #language:hover{background:#ffffff16}
+.site-header a:focus-visible,.site-header button:focus-visible{outline:2px solid #ffda43;outline-offset:4px}
+.site-header .nav-toggle{display:none}
+@media(max-width:750px){
+ header.site-header.has-menu,header.site-header.has-menu.is-scrolled{display:block;padding:8px 12px;background:#0d1425}
+ .site-header .nav-shell{grid-template-columns:1fr auto auto;gap:8px;min-height:58px;padding:8px 12px;border-radius:15px}
+ header.site-header .brand{font-size:27px}
+ header.site-header #language{grid-column:2;grid-row:1;width:40px;min-width:40px;min-height:40px;border-radius:10px}
+ header.site-header.has-menu .nav-toggle{grid-column:3;grid-row:1;display:flex;gap:9px;align-items:center;justify-content:center;min-height:40px;padding:0 12px;border:0;border-radius:10px;background:#ffda43;color:#111827;font:700 12px Arial,sans-serif;box-shadow:none}
+ header.site-header .nav-toggle i{position:relative;width:15px;height:10px;border-block:2px solid currentColor;transition:transform .2s}
+ header.site-header.menu-open .nav-toggle i{height:2px;border-bottom:0;transform:rotate(45deg)}
+ header.site-header.menu-open .nav-toggle i::after{content:'';position:absolute;inset:-2px 0 auto;height:2px;background:currentColor;transform:rotate(90deg)}
+ header.site-header.has-menu nav{display:none;position:absolute;inset:calc(100% + 9px) 0 auto;width:auto;margin:0;padding:12px;border:1px solid #ffffff30;border-radius:16px;background:#151f32;box-shadow:0 20px 40px #0008;counter-reset:nav}
+ header.site-header.has-menu.menu-open nav{display:grid;grid-template-columns:1fr;gap:6px;animation:nav-arrive .2s ease-out}
+ header.site-header.has-menu nav a{justify-content:flex-start;gap:16px;min-height:56px;padding:12px 16px;font-size:16px;border-radius:10px;background:#ffffff06}
+ header.site-header nav a::before{counter-increment:nav;content:'0' counter(nav);font:10px monospace;opacity:.55}
+ header.site-header.has-menu nav a[href="#contacto"]{background:#ffda43;color:#111827}
+ header.site-header.has-menu nav a[aria-current]{background:#fff3dd;color:#111827}
+}
+@keyframes nav-arrive{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.site-header *{animation:none!important;transition:none!important}}

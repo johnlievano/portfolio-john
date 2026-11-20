@@ -1,0 +1,166 @@
+header.site-header .brand,
+.site-footer .brand { font-size: clamp(24px, 2.4vw, 32px); letter-spacing: 0; }
+.site-header .brand span,
+header.site-header .brand span,
+.site-footer .brand span {
+  color: #ed3347;
+  font-family: inherit;
+  font-size: 1em;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: 0;
+  vertical-align: baseline;
+  margin-left: .055em;
+}
+.site-footer .footer-legal {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 100%;
+  padding-top: 7px;
+  border-top: 1px solid #ffffff24;
+  text-align: center;
+}
+.site-footer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 8px 18px;
+  padding-block: 15px 12px;
+}
+.site-footer .footer-top { justify-self: end; }
+.site-footer .footer-legal small {
+  font: 11px/1.5 Arial, sans-serif;
+  color: #c5ccda;
+}
+.site-footer .footer-legal .footer-marvel { color: #9ca9bd; }
+@media (max-width: 750px) {
+  .site-footer .footer-legal { gap: 3px; }
+  .site-footer .footer-legal small { font-size: 10px; }
+}
+.origin-grid .power-word { display: inline-block; margin-left: .1em; }
+#proyectos .section-heading > p {
+  max-width: 345px;
+  margin: 0;
+  padding: 15px 18px;
+  border-left: 4px solid #dc2738;
+  background: #fff9ec;
+  box-shadow: 4px 4px 0 #172138;
+  font-size: 15px;
+  line-height: 1.55;
+}
+#proyectos .section-heading > p .tape-lead {
+  display: inline-block;
+  margin-bottom: 5px;
+  font: 400 17px/1.35 Arial, sans-serif;
+  letter-spacing: .035em;
+}
+@media (max-width: 750px) {
+  #proyectos .section-heading > p { font-size: 14px; padding: 12px 15px; }
+  #proyectos .section-heading > p .tape-lead { font-size: 15px; }
+}
+/* Make the experience and contact copy easy to read at a glance. */
+.cover-centered .hero-summary { width: 29%; }
+.cover-centered .hero-summary .hero-role {
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: .02em;
+}
+.cover-centered .hero-summary .intro {
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.6;
+  color: #f4f1e9;
+}
+.cover-centered .hero-summary .intro strong { color: #fff; }
+.cover-centered .hero-contact {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  text-decoration-thickness: 2px;
+}
+@media (max-width: 750px) {
+  .cover-centered .hero-summary { width: auto; }
+  .cover-centered .hero-summary .hero-role { font-size: 12px; }
+  .cover-centered .hero-summary .intro { font-size: 15px; line-height: 1.55; }
+  .cover-centered .hero-contact { font-size: 14px; }
+}
+/* The tint must cover the whole scene; only the city image changes size. */
+.finale-skyline {
+  background-image: linear-gradient(0deg, #09142bd9, #152e63a8), url('/art/city.webp');
+  background-size: 100% 100%, auto 105%;
+  background-position: center, right bottom;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+.finale-ground { display: none; }
+.finale-actor { bottom: 0; }
+@media (max-width: 750px) {
+  .finale-skyline { background-size: 100% 100%, auto 65%; }
+}
+@media (max-width: 750px) {
+  .cover-centered .hero-character {
+    height: 320px;
+    margin-top: 0;
+    align-self: end;
+  }
+  .contact .booth-stage {
+    justify-self: center;
+    margin-inline: auto;
+  }
+  .phone-booth .booth-interior {
+    left: 50%;
+    width: min(250px, 82vw);
+    max-width: none;
+    transform: translate3d(-50%, 12px, 75px) rotateY(-10deg);
+  }
+  .phone-booth.is-open .booth-interior {
+    transform: translate3d(-50%, 0, 75px) rotateY(0);
+  }
+}
+@media (max-width: 350px) {
+  .cover-centered .hero-character { height: 280px; }
+  .phone-booth .booth-interior { width: min(230px, 82vw); }
+}
+
+.ticker{overflow:hidden;white-space:nowrap}
+.ticker-track{display:flex;width:max-content;animation:ticker-right 32s linear infinite}
+.ticker-track>span{flex:none;padding-right:3em}
+@keyframes ticker-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.ticker-track{animation:none}.ticker{white-space:normal}.ticker-track{width:auto}.ticker-track>span+span{display:none}}
+/* Quick contact links: enamel comic badges. */
+.cover-centered .hero-socials{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.cover-centered .hero-socials a{display:grid;place-items:center;width:44px;height:44px;box-sizing:border-box;border:2px solid #fff3dd;border-radius:14px;background:#111c30;color:#fff3dd;box-shadow:3px 3px 0 #070d19;text-decoration:none;transition:transform .22s,background .22s,color .22s,box-shadow .22s}
+.cover-centered .hero-socials svg{width:23px;height:23px}
+.cover-centered .hero-socials a:hover{transform:translateY(-3px) rotate(-5deg);background:#ffda43;color:#101727;box-shadow:4px 6px 0 #070d19}
+.cover-centered .hero-socials a:focus-visible{outline:3px solid #ffda43;outline-offset:5px}
+@media(max-width:750px){
+ .cover.cover-centered{height:auto;min-height:var(--cover-space);grid-template-rows:auto minmax(430px,1fr) auto}
+ .cover-centered .hero-socials{display:grid;grid-template-columns:repeat(2,44px);gap:12px;margin-top:14px;width:max-content}
+ .cover-centered .hero-copy{align-self:center;margin-block:8px 0;padding-block:12px 20px}
+ .cover-centered .hero-character{align-self:stretch;height:auto;min-height:430px;width:calc(100% + 9vw);margin:0 -9vw 0 0;overflow:visible}
+ .cover-centered .hero-character img{position:absolute;right:0;bottom:0;height:100%;width:auto;max-height:none;max-width:none;object-fit:contain;object-position:right bottom}
+ .cover-centered .hero-summary{padding:18px 0 20px}
+ .cover-centered .hero-summary .hero-role{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin:0;font:600 12px/1.5 Arial,sans-serif;letter-spacing:.02em;color:#fff3dd}
+ .cover-centered .hero-summary .hero-role span{color:#ffda43;white-space:nowrap}
+ .cover-centered .hero-summary .intro{margin:9px 0 0;font-size:15px;line-height:1.55;color:#d1d9e4}
+ .cover-centered .hero-summary .intro strong{font-weight:500}
+ .cover-centered .hero-summary .hero-contact{display:inline-block;margin-top:14px}
+ /* Restore the compact illustrated page, with text beside the character. */
+ #scroll-scene .scene-words{top:17%}
+ #scroll-scene .scene-words h2{margin-top:0}
+ #scroll-scene .story-stage{top:44%;height:39%}
+ #scroll-scene .realized-site .demo-nav{padding:14px 5%}
+ #scroll-scene .realized-site .demo-nav b{font-size:clamp(18px,5vw,24px);letter-spacing:-1px}
+ #scroll-scene .realized-site .demo-hero{align-items:center;padding:0 5% 4%;grid-template-columns:1fr 1fr}
+ #scroll-scene .tuweb-copy{grid-column:1;width:auto;align-self:center}
+ #scroll-scene .realized-site .demo-hero h3{font-size:clamp(23px,6vw,40px);line-height:.97;letter-spacing:-.045em;margin:13px 0}
+ #scroll-scene .demo-cta{font-size:12px;line-height:1.35;padding:10px 12px;max-width:160px}
+ #scroll-scene .tuweb-art{inset:0 0 0 53%;overflow:visible}
+ #scroll-scene .tuweb-art img{width:119%;max-width:none;height:113%;right:-5%;bottom:0;object-fit:contain;object-position:bottom}
+ #scroll-scene .tuweb-spark{right:12%;top:9%;font-size:35px}
+}
+@media(prefers-reduced-motion:reduce){.cover-centered .hero-socials a{transition:none}}
