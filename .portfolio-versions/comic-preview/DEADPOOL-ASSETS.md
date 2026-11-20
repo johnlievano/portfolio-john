@@ -1,8 +1,0 @@
-Generados con Imagegen integrado. Fotogramas WebP en `public/art/john-deadpool-walk.webp`, `public/art/john-deadpool-wave.webp` y `public/art/john-deadpool-wave-out.webp`.
-
-Single full-length sharp comic-book illustration on transparent background. Young adult Latino man with warm complexion, short dark tight curls, black rectangular glasses and a small goatee, looking toward viewer smiling gently. Standing with right hand raised in a friendly wave, palm outward. He is at a costume party wearing an unmasked Deadpool costume in rich red and charcoal with gloves, boots and belt, carrying nothing. Crisp detail and saturated vintage graphic novel inks. One adult, head to feet visible, no lettering, no props, blank transparent alpha background.
-
-Create a transparent 2×2 square sprite sheet of the same smiling unmasked man wearing the exact red and charcoal superhero costume in the reference. Preserve face, glasses, curly hair, colors, and matching sharp comic linework. All four quadrants depict full body walking toward the right in four distinct steps: left foot forward, passing position, right foot forward, passing position. Center each figure, consistent scale and feet baseline; completely contained within its quadrant. High resolution. No background, no text, empty hands.
-
-Edit the reference illustration by moving only the raised right hand and wrist to lean a little farther outward to the left, as the second frame of a gentle greeting wave. Keep raised elbow and left arm fixed. Preserve the exact same unmasked smiling curly-haired man with glasses, his red and charcoal costume, linework, composition, scale and identical head-to-boot framing. High resolution sharp comic ink. Genuine transparent background, no props, no text.
-
